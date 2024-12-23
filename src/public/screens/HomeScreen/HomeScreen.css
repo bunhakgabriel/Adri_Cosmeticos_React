@@ -1,3 +1,9 @@
 #home-screen {
-    
+    display: flex;
+    justify-content: center;
+
+    .typewriter{
+        margin-top: 50px;
+    }
+
 }
