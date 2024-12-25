@@ -1,4 +1,5 @@
 import Typerwriter from '../../componentes/Typewriter/Typewriter';
+import Slide from './componentes/Slide/Slide';
 import './HomeScreen.css'
 
 const HomeScreen = () => {
@@ -9,6 +10,7 @@ const HomeScreen = () => {
             <div className='typewriter'>
                 <Typerwriter texto={textTypewriter} style={{ fontSize: '3em' }} />
             </div>
+            <Slide />
         </div>
     )
 }
