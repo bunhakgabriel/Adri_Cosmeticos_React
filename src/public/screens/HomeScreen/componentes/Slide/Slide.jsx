@@ -22,7 +22,7 @@ const Slide = () => {
         imagens={imagens}
         estiloImg={{width: '250px', height: '100%'}}
         estiloCarrossel={{width: '750px', height: '200px'}}
-        transicao={4000}
+        transicao={40000000}
       />
     </div>
   );
