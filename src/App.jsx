@@ -1,3 +1,4 @@
+import { Outlet } from 'react-router-dom'
 import './App.css'
 import Navbar from './public/componentes/Navbar/Navbar'
 import { Rodape } from './public/componentes/Rodape/Rodape'
@@ -8,7 +9,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <HomeScreen />
+      <Outlet />
       <Rodape />
     </>
   )

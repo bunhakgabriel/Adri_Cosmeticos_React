@@ -1,20 +1,23 @@
 import './Navbar.css'
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
+    const path = useLocation().pathname;
+
     return (
         <div id="navbar">
             <ul>
                 <li>
-                    <a className='link'>Home</a>
+                    <Link className={`link ${path === '/' ? 'active' : ''}`} to="/">Home</Link>
                 </li>
                 <li>
-                    <a className='link'>Produtos</a>
+                    <Link className={`link ${path === '/produtos' ? 'active' : ''}`}  to="/produtos">Produtos</Link>
                 </li>
                 <li>
-                    <a className='link'>Como Chegar</a>
+                    <Link className='link'>Como Chegar</Link>
                 </li>
                 <li>
-                    <a className='link'>Fale conosco</a>
+                    <Link className='link'>Fale conosco</Link>
                 </li>
             </ul>
         </div>

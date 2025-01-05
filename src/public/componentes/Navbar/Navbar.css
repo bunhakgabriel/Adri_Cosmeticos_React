@@ -32,6 +32,8 @@
 
     .link{
         position: relative;
+        text-decoration: none;
+        color: white;
     }
 
     .link::after{
@@ -47,6 +49,18 @@
     }
 
     .link:hover::after{
+        width: 100%;
+    }
+
+    .active::after{
+        content: '';
+        position: absolute;
+        background-color: #fff;
+        height: 2px;
+        transition: width 0.3s;
+        top: 25px;
+        left: 0;
+        bottom: 0px;
         width: 100%;
     }
 
