@@ -1,6 +1,15 @@
+import './ProdutosScreen.css'
+import Produto from '../../componentes/Produto/Produto';
+
 const ProdutosScreen = () => {
+
     return (
-        <h1>Pagina de produtos</h1>
+        <div id='produtos'>
+            <Produto />
+            <Produto />
+            <Produto />
+            <Produto />
+        </div>
     )
 }
 

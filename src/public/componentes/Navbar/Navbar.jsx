@@ -19,6 +19,9 @@ const Navbar = () => {
                 <li>
                     <Link className='link'>Fale conosco</Link>
                 </li>
+                <li>
+                    <Link className='link'>Carrinho</Link>
+                </li>
             </ul>
         </div>
     )
