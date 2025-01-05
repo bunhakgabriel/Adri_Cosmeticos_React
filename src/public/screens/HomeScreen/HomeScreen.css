@@ -3,9 +3,42 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    flex-wrap: wrap;
 
-    .typewriter{
+    .typewriter {
         margin: 50px auto;
+    }
+
+    .linhas-profissionais {
+        display: flex;
+        justify-content: center;
+        column-gap: 40px;
+        margin: 120px 0px 140px 0px;
+
+    }
+
+    .como-chegar {
+        margin: 80px auto 50px auto;
+        width: 800px;
+
+        h1{
+            text-align: center;
+            font-family: serif;
+            font-weight: 100;
+            font-size: 2.5em;
+            margin: 0px 0px 30px 0px;
+        }
+
+        iframe{
+            width: 100%;
+        }
+
+    }
+
+    .imagens-loja {
+        display: flex;
+        gap: 30px;
+        padding-bottom: 50px;
     }
 
 }
