@@ -1,9 +1,9 @@
 import './Modal.css'
 
-const Modal = ({produto, abrirModal}) => {
-    if(produto.expandir){
+const Modal = ({ produto, abrirModal, colecao }) => {
+    if (produto.expandir) {
         return (
-            <dialog id="modal" open={produto.expandir} onClick={() => abrirModal(produto)}>
+            <dialog id="modal" open={produto.expandir} onClick={() => abrirModal(produto, colecao)}>
                 <div className='produtos-modal'>
                     <img src={produto.url} />
                     <div className='conteudo'>

@@ -1,5 +1,5 @@
 #modal {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.4);
     position: fixed;
     top: 0;
     right: 0;
@@ -34,7 +34,7 @@
                 padding: 20px;
             }
 
-            h1{
+            h1 {
                 font-family: serif;
                 font-size: 1.6em;
                 padding-left: 20px;

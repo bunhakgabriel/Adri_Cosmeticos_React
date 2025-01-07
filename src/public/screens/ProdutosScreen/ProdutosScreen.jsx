@@ -4,20 +4,22 @@ import { getColecaoProdutos } from './ProdutoService';
 import { useEffect, useState, useRef } from 'react';
 import Modal from '../../componentes/Modal/Modal';
 
-const ColecaoProdutos = ({colecao, title, abrirModal}) => {
+const ColecaoProdutos = ({ colecao, title, abrirModal }) => {
     return (
         <div className='colecao-produtos-container'>
             <h1>{title}</h1>
-            {colecao.map(produto => {
+            {colecao.array.map(produto => {
                 return (
                     <div key={produto.codigo}>
                         <Produto
                             produto={produto}
                             abrirModal={abrirModal}
+                            colecao={colecao.name}
                         />
                         <Modal
                             produto={produto}
                             abrirModal={abrirModal}
+                            colecao={colecao.name}
                         />
                     </div>
                 )
@@ -32,25 +34,20 @@ const ProdutosScreen = () => {
     const [salao, setSalao] = useState([]);
     const [lash, setLash] = useState([]);
 
-    const abrirModal = (produto) => {
-        setManicurePedicure(manicurePedicure.map(manicure => {
-            if(produto.codigo == manicure.codigo){
-                manicure.expandir = !manicure.expandir
-            }
-            return manicure
-        }))
-        setSalao(salao.map(salao => {
-            if(produto.codigo == salao.codigo){
-                salao.expandir = !salao.expandir
-            }
-            return salao
-        }))
-        setLash(lash.map(lash => {
-            if(produto.codigo == lash.codigo){
-                lash.expandir = !lash.expandir
-            }
-            return lash
-        }))
+    const abrirModal = (produto, colecao) => {
+        const colecoes = { manicurePedicure, salao, lash }
+
+        const array = colecoes[colecao].map(item =>
+            item.codigo === produto.codigo ? { ...item, expandir: !item.expandir } : item
+        );
+
+        const setFunction = {
+            manicurePedicure: setManicurePedicure,
+            salao: setSalao,
+            lash: setLash
+        }[colecao];
+
+        setFunction(array);
     }
 
     useEffect(() => {
@@ -71,17 +68,17 @@ const ProdutosScreen = () => {
     return (
         <div id='produtos'>
             <ColecaoProdutos
-                colecao={manicurePedicure}
+                colecao={{ array: manicurePedicure, name: 'manicurePedicure' }}
                 title='Linha profissional manicure e pedicure'
                 abrirModal={abrirModal}
             />
             <ColecaoProdutos
-                colecao={salao}
+                colecao={{ array: salao, name: 'salao' }}
                 title='Linha profissional salão'
                 abrirModal={abrirModal}
             />
             <ColecaoProdutos
-                colecao={lash}
+                colecao={{ array: lash, name: 'lash' }}
                 title='Lash Designer'
                 abrirModal={abrirModal}
             />
