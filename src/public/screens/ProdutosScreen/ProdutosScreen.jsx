@@ -3,6 +3,7 @@ import Produto from '../../componentes/Produto/Produto';
 import { getColecaoProdutos } from './ProdutoService';
 import { useEffect, useState, useRef } from 'react';
 import Modal from '../../componentes/Modal/Modal';
+import { debounceAsync } from '../../../utils/debounceTimeAsync';
 
 const ColecaoProdutos = ({ colecao, title, abrirModal }) => {
     return (
@@ -34,6 +35,21 @@ const ProdutosScreen = () => {
     const [salao, setSalao] = useState([]);
     const [lash, setLash] = useState([]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!backendCalled.current) {
+                backendCalled.current = true;
+                const dataManicurePedicure = await getColecaoProdutos('manicurePedicure');
+                const dataSalao = await getColecaoProdutos('salao');
+                const dataLash = await getColecaoProdutos('lash');
+                setManicurePedicure(dataManicurePedicure);
+                setSalao(dataSalao);
+                setLash(dataLash);
+            }
+        }
+        fetchData();
+    }, [])
+
     const abrirModal = (produto, colecao) => {
         const colecoes = { manicurePedicure, salao, lash }
 
@@ -50,38 +66,50 @@ const ProdutosScreen = () => {
         setFunction(array);
     }
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (!backendCalled.current) {
-                backendCalled.current = true;
-                const dataManicurePedicure = await getColecaoProdutos('manicurePedicure');
-                const dataSalao = await getColecaoProdutos('salao');
-                const dataLash = await getColecaoProdutos('lash');
-                setManicurePedicure(dataManicurePedicure);
-                setSalao(dataSalao);
-                setLash(dataLash);
-            }
-        }
-        fetchData();
-    }, [])
+    const filtrarPesquisa = async (value) => {
+        let arrayManicurePedicure = await getColecaoProdutos('manicurePedicure');
+        let arraySalao = await getColecaoProdutos('salao');
+        let arrayLash = await getColecaoProdutos('lash');
+        setManicurePedicure(arrayManicurePedicure.filter(produto => produto.produto.toLowerCase().includes(value.toLowerCase())));
+        setSalao(arraySalao.filter(produto => produto.produto.toLowerCase().includes(value.toLowerCase())));
+        setLash(arrayLash.filter(produto => produto.produto.toLowerCase().includes(value.toLowerCase())));
+    }
+
+    const filtrarPesquisaDebounce = debounceAsync(filtrarPesquisa, 500);
 
     return (
         <div id='produtos'>
-            <ColecaoProdutos
-                colecao={{ array: manicurePedicure, name: 'manicurePedicure' }}
-                title='Linha profissional manicure e pedicure'
-                abrirModal={abrirModal}
-            />
-            <ColecaoProdutos
-                colecao={{ array: salao, name: 'salao' }}
-                title='Linha profissional salão'
-                abrirModal={abrirModal}
-            />
-            <ColecaoProdutos
-                colecao={{ array: lash, name: 'lash' }}
-                title='Lash Designer'
-                abrirModal={abrirModal}
-            />
+            <div className="input-pesquisa">
+                <input
+                    type="text"
+                    placeholder="Oque deseja buscar?"
+                    onChange={(e) => filtrarPesquisaDebounce(e.target.value)}
+                />
+            </div>
+
+            <div className='container-produtos'>
+                {manicurePedicure.length > 0 && (
+                    <ColecaoProdutos
+                        colecao={{ array: manicurePedicure, name: 'manicurePedicure' }}
+                        title='Linha profissional manicure e pedicure'
+                        abrirModal={abrirModal}
+                    />
+                )}
+                {salao.length > 0 && (
+                    <ColecaoProdutos
+                        colecao={{ array: salao, name: 'salao' }}
+                        title='Linha profissional salão'
+                        abrirModal={abrirModal}
+                    />
+                )}
+                {lash.length > 0 && (
+                    <ColecaoProdutos
+                        colecao={{ array: lash, name: 'lash' }}
+                        title='Lash Designer'
+                        abrirModal={abrirModal}
+                    />
+                )}
+            </div>
         </div>
     )
 }
