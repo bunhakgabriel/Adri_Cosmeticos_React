@@ -1,6 +1,32 @@
 #produtos {
-    width: 95%;
-    margin: 30px auto;   
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
+    background-color: #F8E0E6;
+
+    .colecao-produtos-container {
+        width: 1000px;
+        margin: 30px auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+
+        h1 {
+            width: 100%;
+            font-size: 2.5em;
+            font-family: serif;
+            font-weight: 400;
+        }
+
+        > div {
+            width: 22%;
+            min-height: 350px;
+        }
+
+    }
+
 }
