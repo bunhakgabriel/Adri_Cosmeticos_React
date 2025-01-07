@@ -9,9 +9,13 @@ export const Produto = ({ produto, abrirModal, colecao }) => {
             <img className='img-produto' src={produto.url} onClick={() => abrirModal(produto, colecao)} />
             <h4>{produto.produto}</h4>
             <div className='quantidade'>
-                <IoRemoveOutline size={30} />
+                <IoRemoveOutline style={{ cursor: 'pointer' }} size={30} />
                 <span>0</span>
-                <IoAdd size={30} />
+                <IoAdd
+                    style={{ cursor: 'pointer' }}
+                    size={30}
+                    onClick={() => adicionarProduto(produto)}
+                />
             </div>
         </div>
     )

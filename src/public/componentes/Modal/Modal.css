@@ -40,6 +40,35 @@
                 padding-left: 20px;
             }
 
+            .preco-quantidade {
+                display: flex;
+                padding-inline: 20px;
+                align-items: center;
+                justify-content: start;
+                gap: 20px;
+
+                h3 {
+                    font-size: 2em;
+                }
+
+                .quantidade {
+                    border: 1px solid gray;
+                    width: 30%;
+                    margin-block: 10px;
+                    display: flex;
+                    justify-content: center;
+                    column-gap: 10px;
+                    padding-block: 10px;
+
+                    span {
+                        display: flex;
+                        align-items: center;
+                        font-size: 25px;
+                    }
+
+                }
+            }
+
         }
 
     }

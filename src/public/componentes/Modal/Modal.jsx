@@ -1,4 +1,5 @@
 import './Modal.css'
+import { IoAdd, IoRemoveOutline } from "react-icons/io5";
 
 const Modal = ({ produto, abrirModal, colecao }) => {
     if (produto.expandir) {
@@ -10,6 +11,14 @@ const Modal = ({ produto, abrirModal, colecao }) => {
                         <p>Código: {produto.codigo}</p>
                         <h1>{produto.produto}</h1>
                         <p>{produto.descricao}</p>
+                        <div className='preco-quantidade' >
+                            <h3>R$ {produto.preco}</h3>
+                            <div className='quantidade'>
+                                <IoRemoveOutline style={{ cursor: 'pointer' }} size={30} />
+                                <span>0</span>
+                                <IoAdd style={{ cursor: 'pointer' }} size={30} />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </dialog>
