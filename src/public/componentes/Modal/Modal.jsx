@@ -13,11 +13,11 @@ const Modal = ({ produto, abrirModal, colecao }) => {
                         <p>{produto.descricao}</p>
                         <div className='preco-quantidade' >
                             <h3>R$ {produto.preco}</h3>
-                            <div className='quantidade'>
+                            {/* <div className='quantidade'>
                                 <IoRemoveOutline style={{ cursor: 'pointer' }} size={30} />
                                 <span>0</span>
                                 <IoAdd style={{ cursor: 'pointer' }} size={30} />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

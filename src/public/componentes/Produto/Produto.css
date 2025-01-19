@@ -1,4 +1,4 @@
-#produto{
+#produto {
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
@@ -8,12 +8,12 @@
     width: 100%;
     height: 100%;
 
-    .img-produto{
+    .img-produto {
         width: 100%;
         height: 75%;
     }
 
-    h4{
+    h4 {
         text-align: center;
         justify-content: center;
         font-size: 15px;
@@ -36,9 +36,17 @@
 
     }
 
+    .icone {
+        cursor: pointer;
+
+        &:active {
+            transform: scale(1.3);
+        }
+    }
+
 }
 
-#produto:has(.img-produto:hover){
+#produto:has(.img-produto:hover) {
     transform: scale(1.2);
     transition: 1s;
     cursor: pointer;

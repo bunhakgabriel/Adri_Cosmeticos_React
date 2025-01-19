@@ -25,13 +25,13 @@ export const Produto = ({ produto, abrirModal, colecao }) => {
             <h4>{produto.produto}</h4>
             <div className='quantidade'>
                 <IoRemoveOutline
-                    style={{ cursor: 'pointer' }}
+                    className='icone'
                     size={30}
                     onClick={removeCarrinho}
                 />
                 <span>{produto.quantidade || 0}</span>
                 <IoAdd
-                    style={{ cursor: 'pointer' }}
+                    className='icone'
                     size={30}
                     onClick={addCarrinho}
                 />
