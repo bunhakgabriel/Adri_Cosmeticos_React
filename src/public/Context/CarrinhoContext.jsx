@@ -1,0 +1,38 @@
+import { createContext, useState } from "react"
+
+export const CarrinhoContext = createContext();
+
+export const CarrinhoProvider = ({children}) => {
+
+    const [carrinho, setCarrinho] = useState([]);
+
+    const adicionarAoCarrinho = (produto) => {
+        const array = carrinho;
+        const index = array.indexOf(produto);
+        
+        if(index === -1){
+            produto.quantidade = 1;
+            array.push(produto);
+        } else {
+            produto.quantidade += 1;
+            array.splice(index, 1, produto);
+        }
+        setCarrinho(array);
+    }
+
+    const removerDoCarrinho = (produto) => {
+        if(produto.quantidade === 0) return;
+
+        const array = carrinho;
+        const index = array.indexOf(produto);
+        produto.quantidade -= 1;
+        array.splice(index, 1, produto);
+        setCarrinho(array);
+    }
+
+    return (
+        <CarrinhoContext.Provider value={{ carrinho, adicionarAoCarrinho, removerDoCarrinho }}>
+            {children}
+        </CarrinhoContext.Provider>
+    )
+}
