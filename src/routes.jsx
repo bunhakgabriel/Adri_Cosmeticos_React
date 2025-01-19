@@ -1,4 +1,5 @@
 import App from './App.jsx';
+import CarrinhoScreen from './public/screens/CarrinhoScreen/CarrinhoScreen.jsx';
 import HomeScreen from './public/screens/HomeScreen/HomeScreen.jsx'
 import ProdutosScreen from './public/screens/ProdutosScreen/ProdutosScreen.jsx'
 
@@ -15,6 +16,10 @@ const routes = [
           {
             path: '/produtos',
             element: <ProdutosScreen />
+          },
+          {
+            path: '/carrinho',
+            element: <CarrinhoScreen />
           }
         ]
       }

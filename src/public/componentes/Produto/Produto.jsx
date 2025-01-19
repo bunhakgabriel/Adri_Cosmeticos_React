@@ -7,7 +7,7 @@ import { CarrinhoContext } from '../../Context/CarrinhoContext';
 export const Produto = ({ produto, abrirModal, colecao }) => {
 
     const [refreshComponent, setRefreshComponent] = useState(false);
-    const { adicionarAoCarrinho, removerDoCarrinho } = useContext(CarrinhoContext);
+    const { carrinho, adicionarAoCarrinho, removerDoCarrinho } = useContext(CarrinhoContext);
 
     const addCarrinho = () => {
         adicionarAoCarrinho(produto);
@@ -18,6 +18,16 @@ export const Produto = ({ produto, abrirModal, colecao }) => {
         removerDoCarrinho(produto);
         setRefreshComponent(!refreshComponent)
     }
+
+    const init = () => {
+        carrinho.forEach(itemCarrinho => {
+            if(itemCarrinho.codigo === produto.codigo){
+                produto.quantidade = itemCarrinho.quantidade
+            }
+        })
+    } 
+
+    init();
 
     return (
         <div id='produto'>

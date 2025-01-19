@@ -8,7 +8,7 @@ export const CarrinhoProvider = ({children}) => {
 
     const adicionarAoCarrinho = (produto) => {
         const array = carrinho;
-        const index = array.indexOf(produto);
+        const index = array.findIndex(item => item.codigo === produto.codigo);
         
         if(index === -1){
             produto.quantidade = 1;
@@ -21,12 +21,12 @@ export const CarrinhoProvider = ({children}) => {
     }
 
     const removerDoCarrinho = (produto) => {
-        if(produto.quantidade === 0) return;
+        if(!produto.quantidade) return;
 
         const array = carrinho;
-        const index = array.indexOf(produto);
+        const index = array.findIndex(item => item.codigo === produto.codigo);
         produto.quantidade -= 1;
-        array.splice(index, 1, produto);
+        produto.quantidade == 0 ? array.splice(index, 1) :array.splice(index, 1, produto);
         setCarrinho(array);
     }
 

@@ -20,7 +20,7 @@ const Navbar = () => {
                     <Link className='link'>Fale conosco</Link>
                 </li>
                 <li>
-                    <Link className='link'>Carrinho</Link>
+                    <Link className={`link ${path === '/carrinho' ? 'active' : ''}`}  to="/carrinho">Carrinho</Link>
                 </li>
             </ul>
         </div>
