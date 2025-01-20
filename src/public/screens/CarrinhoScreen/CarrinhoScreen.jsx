@@ -1,11 +1,14 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import './CarrinhoScreen.css'
 import { CarrinhoContext } from '../../Context/CarrinhoContext';
 import CardProdutoCarrinho from './componentes/CardProdutoCarrinho/CardProdutoCarrinho';
+import { Link } from 'react-router-dom';
+import ModalFormulario from './componentes/ModalFormulario/ModalFormulario';
 
 const CarrinhoScreen = () => {
 
-    const { carrinho } = useContext(CarrinhoContext)
+    const { carrinho, totalProdutos } = useContext(CarrinhoContext)
+    const [finalizarPedido, setFinalizarPedido] = useState(false);
 
     return (
         <div id='carrinho-screen'>
@@ -26,6 +29,30 @@ const CarrinhoScreen = () => {
                     <h3 className='sem-produtos' >Não há produtos no carrinho</h3>
                 }
             </div>
+            <div className='total-carrinho'>
+                <div className='valor'>
+                    <h2>Sumário</h2>
+                    <span>{totalProdutos.quantidade} produto(s)</span>
+                    <span
+                        style={{ textAlign: 'right' }}>
+                        R$ {totalProdutos.valor.toFixed(2) || '0.00'}
+                    </span>
+                    <div className='hr'></div>
+                    <span style={{ color: '#daff01' }}>
+                        Total
+                    </span>
+                    <span
+                        style={{ color: '#daff01', textAlign: 'right' }}
+                    >
+                        R$ {totalProdutos.valor.toFixed(2) || '0.00'}
+                    </span>
+                </div>
+                <div className='funcoes'>
+                    <Link className='link' to='/produtos'>Adicionar mais itens</Link>
+                    <button onClick={() => setFinalizarPedido(true)}>Finalizar pedido</button>
+                </div>
+            </div>
+            <ModalFormulario finalizarPedido={finalizarPedido} closeModal={setFinalizarPedido} />
         </div>
     )
 }

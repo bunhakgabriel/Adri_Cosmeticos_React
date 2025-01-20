@@ -5,6 +5,7 @@ export const CarrinhoContext = createContext();
 export const CarrinhoProvider = ({children}) => {
 
     const [carrinho, setCarrinho] = useState([]);
+    const [totalProdutos, setTotalProdutos] = useState({quantidade: 0, valor: 0.00});
 
     const adicionarAoCarrinho = (produto) => {
         const array = carrinho;
@@ -18,6 +19,12 @@ export const CarrinhoProvider = ({children}) => {
             array.splice(index, 1, produto);
         }
         setCarrinho(array);
+        setTotalProdutos(preview => {
+            return { 
+                quantidade: preview.quantidade + 1, 
+                valor: preview.valor + Number(produto.preco) 
+            }
+        });
     }
 
     const removerDoCarrinho = (produto) => {
@@ -28,10 +35,36 @@ export const CarrinhoProvider = ({children}) => {
         produto.quantidade -= 1;
         produto.quantidade == 0 ? array.splice(index, 1) :array.splice(index, 1, produto);
         setCarrinho(array);
+        setTotalProdutos(preview => {
+            return { 
+                quantidade: preview.quantidade - 1, 
+                valor: preview.valor - Number(produto.preco)
+            }
+        });
+    }
+
+    const zerarQuantidade = (produto) => {
+        const array = [...carrinho];
+        const index = array.findIndex(item => item.codigo === produto.codigo);
+        array.splice(index, 1)
+        setCarrinho(array);
+        setTotalProdutos(preview => {
+            return { 
+                quantidade: preview.quantidade - produto.quantidade, 
+                valor: preview.valor - (Number(produto.preco) * produto.quantidade )
+            }
+        });
     }
 
     return (
-        <CarrinhoContext.Provider value={{ carrinho, adicionarAoCarrinho, removerDoCarrinho }}>
+        <CarrinhoContext.Provider 
+        value={{ 
+            carrinho, 
+            adicionarAoCarrinho, 
+            removerDoCarrinho,
+            zerarQuantidade,
+            totalProdutos 
+            }}>
             {children}
         </CarrinhoContext.Provider>
     )

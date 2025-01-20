@@ -1,12 +1,18 @@
 import './CardProdutoCarrinho.css'
 import { IoAdd, IoRemoveOutline } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
 import { CarrinhoContext } from '../../../../Context/CarrinhoContext';
 import { useContext, useState } from 'react';
 
 const CardProdutoCarrinho = ({ produto }) => {
 
     const [refreshComponent, setRefreshComponent] = useState(false);
-    const { carrinho, adicionarAoCarrinho, removerDoCarrinho } = useContext(CarrinhoContext);
+    const {
+        carrinho,
+        adicionarAoCarrinho,
+        removerDoCarrinho,
+        zerarQuantidade
+    } = useContext(CarrinhoContext);
 
     const addCarrinho = () => {
         adicionarAoCarrinho(produto);
@@ -57,6 +63,13 @@ const CardProdutoCarrinho = ({ produto }) => {
                     />
                 </div>
                 <p className='preco'>R$ {produto.preco}</p>
+            </div>
+            <div className='delete' >
+                <MdDelete 
+                size={30} 
+                color='white' 
+                onClick={() => zerarQuantidade(produto)}
+                />
             </div>
         </div>
     )

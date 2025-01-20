@@ -1,7 +1,7 @@
 #card-produto-carrinho {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
 
     h1 {
         color: white;
@@ -71,6 +71,12 @@
         }
     }
 
+    .delete {
+        cursor: pointer;
 
+        &:active{
+            transform: scale(1.3);
+        }
+    }
 
 }
