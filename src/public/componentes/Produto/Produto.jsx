@@ -5,29 +5,8 @@ import { IoAdd, IoRemoveOutline } from "react-icons/io5";
 import { CarrinhoContext } from '../../Context/CarrinhoContext';
 
 export const Produto = ({ produto, abrirModal, colecao }) => {
-
-    const [refreshComponent, setRefreshComponent] = useState(false);
-    const { carrinho, adicionarAoCarrinho, removerDoCarrinho } = useContext(CarrinhoContext);
-
-    const addCarrinho = () => {
-        adicionarAoCarrinho(produto);
-        setRefreshComponent(!refreshComponent)
-    }
-
-    const removeCarrinho = () => {
-        removerDoCarrinho(produto);
-        setRefreshComponent(!refreshComponent)
-    }
-
-    const init = () => {
-        carrinho.forEach(itemCarrinho => {
-            if(itemCarrinho.codigo === produto.codigo){
-                produto.quantidade = itemCarrinho.quantidade
-            }
-        })
-    } 
-
-    init();
+    const { adicionarAoCarrinho, removerDoCarrinho, obterQuantidadeProduto } = useContext(CarrinhoContext);
+    const quantidade = obterQuantidadeProduto(produto.codigo);
 
     return (
         <div id='produto'>
@@ -37,13 +16,13 @@ export const Produto = ({ produto, abrirModal, colecao }) => {
                 <IoRemoveOutline
                     className='icone'
                     size={30}
-                    onClick={removeCarrinho}
+                    onClick={() => removerDoCarrinho(produto)}
                 />
-                <span>{produto.quantidade || 0}</span>
+                <span>{quantidade}</span>
                 <IoAdd
                     className='icone'
                     size={30}
-                    onClick={addCarrinho}
+                    onClick={() => adicionarAoCarrinho(produto)}
                 />
             </div>
         </div>
