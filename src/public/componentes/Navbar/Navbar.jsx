@@ -6,7 +6,7 @@ const Navbar = () => {
 
     return (
         <div id="navbar">
-            <ul>
+            {/* <ul>
                 <li>
                     <Link className={`link ${path === '/' ? 'active' : ''}`} to="/">Home</Link>
                 </li>
@@ -22,7 +22,7 @@ const Navbar = () => {
                 <li>
                     <Link className={`link ${path === '/carrinho' ? 'active' : ''}`}  to="/carrinho">Carrinho</Link>
                 </li>
-            </ul>
+            </ul> */}
         </div>
     )
 }

@@ -5,8 +5,9 @@
 
     .logo-marcas {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         width: 1050px;
+        height: auto;
         flex-wrap: wrap;
         row-gap: 20px;
         margin: 0px auto;
@@ -25,5 +26,72 @@
                 cursor: pointer;
             }
         }
+    }
+}
+
+@media screen and (max-width: 1290px) {
+    #marcas {
+        width: 90vw;
+
+        .logo-marcas {
+            width: 100%;
+        }
+
+        div {
+            width: 18%;
+            height: 190px;
+        }
+
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    #marcas {
+        margin: 30px auto;
+    }
+
+    .logo-marcas div {
+        width: 18%;
+        height: 150px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .logo-marcas div {
+        width: 23%;
+        height: 110px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .logo-marcas {
+        justify-content: space-around;
+
+        div {
+            width: 28%;
+            height: 80px;
+        }
+    }
+}
+
+@media screen and (max-width: 490px) {
+    #marcas {
+        width: 100%;
+    }
+
+    #marcas .logo-marcas {
+        justify-content: center;
+        column-gap: 25px;
+
+        div {
+            width: 45%;
+            height: 100px;
+        }
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .logo-marcas div {
+        height: 90px;
     }
 }

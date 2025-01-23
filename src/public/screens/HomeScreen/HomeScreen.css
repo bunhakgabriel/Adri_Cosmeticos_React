@@ -12,10 +12,12 @@
 
     .linhas-profissionais {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
+        row-gap: 70px;
         column-gap: 40px;
         margin: 120px 0px 140px 0px;
-
+        width: 100%;
+        flex-wrap: wrap;
     }
 
     .como-chegar {
