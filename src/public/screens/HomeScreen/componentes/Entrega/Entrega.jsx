@@ -3,7 +3,7 @@ import './Entrega.css'
 const Entrega = () => {
     return (
         <div id="entregas">
-            <div>
+            <section>
                 <div className="conteudo">
                     <p>Realizamos entregas em Curitiba e região, para os bairros do Pinheirinho,
                         Xaxim, Alto Boqueirão, Boqueirão e Ganchinho não é cobrado taxa de entrega,
@@ -14,7 +14,7 @@ const Entrega = () => {
                         Mais</a>
                 </div>
                 <div className="img"><img src="./imagens/MakeupDelivery_1.png" alt="" /></div>
-            </div>
+            </section>
 
         </div>
     )

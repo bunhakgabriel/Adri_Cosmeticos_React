@@ -15,8 +15,8 @@
         justify-content: space-around;
         row-gap: 70px;
         column-gap: 40px;
-        margin: 120px 0px 140px 0px;
-        width: 100%;
+        margin: 100px 0px 100px 0px;
+        width: 90%;
         flex-wrap: wrap;
     }
 
@@ -42,6 +42,17 @@
         display: flex;
         gap: 30px;
         padding-bottom: 50px;
+    }
+
+}
+
+@media screen and (max-width: 500px) {
+
+    #home-screen {
+    
+        .linhas-profissionais {
+            margin: 50px 0px 70px 0px;
+        }
     }
 
 }

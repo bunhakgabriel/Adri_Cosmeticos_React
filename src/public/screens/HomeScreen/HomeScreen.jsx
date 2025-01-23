@@ -26,7 +26,7 @@ const HomeScreen = () => {
                     )
                 })}
             </div>
-            {/* <Entrega /> */}
+            <Entrega />
             {/* <div className='como-chegar' >
                 <h1>Como chegar</h1>
                 <iframe
