@@ -3,11 +3,11 @@
     padding: 10px;
     font-family: sans-serif;
 
-    *{
+    * {
         background-color: transparent;
     }
 
-    h1{
+    h1 {
         color: white;
         margin: 20px 0px 30px 0px;
         padding: 15px 30px;
@@ -15,44 +15,48 @@
         font-size: 2.7em;
     }
 
-    .flex-bloco8{
+    .flex-bloco8 {
         color: white;
         display: flex;
         justify-content: center;
         column-gap: 20px;
 
-        h3{
+        h3 {
             font-size: 1.8em;
             margin-bottom: 20px;
         }
 
-        ul li{
+        ul {
+            padding: 0;
+        }
+
+        ul li {
             margin-top: 8px;
         }
 
-        .sobre{
+        .sobre {
             width: 30%;
 
-            p{
+            p {
                 text-align: start;
                 margin-top: 0px;
             }
 
-            h3{
+            h3 {
                 margin-bottom: 18px;
             }
 
         }
 
-        .categorias{
+        .categorias {
             margin-left: 50px;
             width: 20%;
 
-            a{
+            a {
                 text-decoration: none;
                 color: white;
 
-                &:hover{
+                &:hover {
                     color: gray;
                 }
 
@@ -60,28 +64,138 @@
 
         }
 
-        .faleConosco{
+        .faleConosco {
             width: 35%;
         }
     }
 
-    .icones{
+    .icones {
         margin: 40px 0px 0px 50px;
 
-        a{
+        a {
             color: rgba(0, 0, 0, 0.0);
         }
 
-        .icon{
+        .icon {
             margin-left: 15px;
             color: white;
         }
     }
 
-    p{
+    p {
         margin: 30px 0px 10px 0px;
         color: white;
         text-align: center;
     }
 
+}
+
+
+@media screen and (max-width: 900px) {
+
+    #rodape {
+
+        .flex-bloco8 {
+
+            h3 {
+                font-size: 1.6em;
+            }
+
+            .sobre {
+                width: 30%;
+
+                p {
+                    font-size: 0.9em;
+                }
+            }
+
+            .categorias {
+                margin-left: 20px;
+                width: 20%;
+
+                ul {
+                    font-size: 0.9em;
+                }
+            }
+
+            .faleConosco {
+                width: 35%;
+                margin-left: 20px;
+            }
+
+        }
+
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #rodape {
+        .flex-bloco8 {
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            row-gap: 20px;
+            column-gap: 40px;
+            width: 90%;
+            margin: 0 auto;
+
+            h3 {
+                font-size: 1.8em;
+            }
+
+            .sobre {
+                width: 55%;
+
+                p {
+                    font-size: 1em;
+                }
+            }
+
+            .categorias {
+                margin-left: 0px;
+                width: 35%;
+
+                ul {
+                    font-size: 1em;
+                }
+            }
+
+            .faleConosco {
+                width: 70%;
+                margin-left: 0px;
+            }
+
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #rodape {
+        .flex-bloco8 {
+            justify-content: start;
+            width: 90%;
+            margin-bottom: 50px;
+
+            .sobre {
+                width: 90%;
+    
+                p {
+                    font-size: 0.9em;
+                }
+            }
+    
+            .categorias {
+                width: 90%;
+    
+                ul {
+                    font-size: 0.9em;
+                }
+            }
+    
+            .faleConosco {
+                width: 90%;
+            }
+        }
+
+        
+    }
 }

@@ -4,7 +4,7 @@ import { FaWhatsapp, FaInstagram, FaFacebook } from "react-icons/fa";
 export const Rodape = () => {
     return (
         <div id="rodape">
-            {/* <h1>AdriCosméticos</h1>
+            <h1>AdriCosméticos</h1>
 
             <div className="flex-bloco8">
                 <div className="sobre">
@@ -57,7 +57,7 @@ export const Rodape = () => {
                 </a>
             </div>
 
-            <p>2023 Copyright - AdriCosméticos</p> */}
+            <p>2023 Copyright - AdriCosméticos</p>
 
         </div>
     )

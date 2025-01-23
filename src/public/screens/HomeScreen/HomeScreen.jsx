@@ -39,10 +39,10 @@ const HomeScreen = () => {
                     referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
             </div>
-            {/* <div className='imagens-loja'>
+            <div className='imagens-loja'>
                 <img src='https://lh3.googleusercontent.com/p/AF1QipMfUewCgHYhcKJdE4WbfiQqXbamsEdz2PFGnlpc=s680-w680-h510' alt='imagem fachada da loja'/>
                 <img src='https://lh3.googleusercontent.com/p/AF1QipO3YwGiRelRMkS9J3BoWA6PURxdB0YEzytj8McT=s680-w680-h510' alt='imagem de dentro da loja'/>
-            </div> */}
+            </div>
         </div>
     )
 }
