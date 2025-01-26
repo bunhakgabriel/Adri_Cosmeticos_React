@@ -8,7 +8,7 @@ const Modal = ({ produto, abrirModal, colecao }) => {
                 <div className='produtos-modal'>
                     <img src={produto.url} />
                     <div className='conteudo'>
-                        <p className='codigo' >Código: {produto.codigo}</p>
+                        <p>Código: {produto.codigo}</p>
                         <h1>{produto.produto}</h1>
                         <p>{produto.descricao}</p>
                         <div className='preco' >

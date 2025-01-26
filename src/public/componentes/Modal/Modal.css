@@ -184,10 +184,6 @@
     #modal {
         .produtos-modal {
             .conteudo {
-                .codigo {
-                    display: none;
-                }
-    
                 h1 {
                     font-size: 1.1em;
                     margin-top: 5px;
