@@ -9,17 +9,17 @@
     height: 100%;
     border: none;
     z-index: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .produtos-modal {
         position: absolute;
         width: 900px;
         height: 500px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         display: flex;
         align-items: center;
-        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        box-shadow: -1px -1px 5px rgba(0, 0, 0, 0.3);
 
         img {
             height: 100%;
@@ -81,8 +81,7 @@
 @media screen and (max-width: 1000px){
     #modal {
         .produtos-modal {
-            top: 50%;
-            width: 98%;
+            width: 90%;
 
             img{
                 height: 90%;
@@ -149,9 +148,9 @@
     #modal {
         .produtos-modal {
             flex-direction: column;
-            top: 1%;
+            /* top: 1%;
             left: 1%;
-            transform: translateY(0);
+            transform: translateY(0); */
 
             .conteudo {
                 display: flex;
