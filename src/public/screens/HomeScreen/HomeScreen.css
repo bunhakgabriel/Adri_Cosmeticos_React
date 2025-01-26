@@ -53,7 +53,6 @@
 @media screen and (max-width: 500px) {
 
     #home-screen {
-
         .linhas-profissionais {
             margin: 50px 0px 70px 0px;
         }
@@ -84,6 +83,14 @@
     }
 }
 
+@media screen and (max-width: 730px) {
+    #home-screen{
+        .typewriter{
+            margin-top: 150px;
+        }
+    }
+}
+
 @media screen and (max-width: 670px) {
     #home-screen{
         .como-chegar {
@@ -100,7 +107,7 @@
 @media screen and (max-width: 620px) {
     #home-screen {
         .typewriter {
-            margin: 50px auto 25px auto;
+            margin: 150px auto 25px auto;
         }
     }
 }
