@@ -1,4 +1,10 @@
 import { Carrossel } from "../../../../componentes/Carrossel/Carrossel";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+
+import './Slide.css'
+import 'swiper/css/autoplay';
+import 'swiper/css';
 
 const Slide = () => {
   const imagens = [
@@ -17,13 +23,26 @@ const Slide = () => {
   ]
 
   return (
-    <div>
-      <Carrossel
-        imagens={imagens}
-        estiloImg={{width: '250px', height: '100%'}}
-        estiloCarrossel={{width: '750px', height: '200px'}}
-        transicao={40000000}
-      />
+    <div id="slide">
+      <Swiper
+        className="container-swiper"
+        loop={true}
+        modules={[Autoplay]}
+        autoplay={{
+          delay: 4000,
+          disableOnInteraction: false,
+        }}
+        speed={1200}
+        allowTouchMove={false}
+        spaceBetween={2}
+        slidesPerView={3}
+      >
+        {imagens.map((urlImage, index) =>
+          <SwiperSlide key={index} className="container-slide" >
+            <img src={urlImage} className="img-slide" />
+          </SwiperSlide>
+        )}
+      </Swiper>
     </div>
   );
 }
