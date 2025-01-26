@@ -170,6 +170,11 @@
 
 @media screen and (max-width: 500px) {
     #rodape {
+        h1{
+            font-size: 2.3em;
+            padding-inline: 10px;
+        }
+
         .flex-bloco8 {
             justify-content: start;
             width: 90%;

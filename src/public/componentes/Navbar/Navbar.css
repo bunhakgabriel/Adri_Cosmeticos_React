@@ -76,6 +76,7 @@
 
 @media screen and (max-width: 730px) {
     #navbar {
+        top: 0;
         position: fixed;
         height: 100px;
         z-index: 90;

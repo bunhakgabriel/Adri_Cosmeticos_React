@@ -3,16 +3,24 @@
     align-items: center;
     gap: 30px;
 
+    .info-quantidade-delete{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
     h1 {
         color: white;
     }
 
     .img img {
         border: 1px solid white;
+        width: 150px;
+        height: 180px;
     }
 
     .info {
-        width: 50%;
+        width: 70%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -29,6 +37,12 @@
             font-family: serif;
             font-size: 0.9em;
         }
+    }
+
+    .quantidade-delete{
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 
     .quantidade {
@@ -79,4 +93,77 @@
         }
     }
 
+}
+
+@media screen and (max-width: 870px) {
+    #card-produto-carrinho {
+        gap: 5px;
+        justify-content: space-between;
+
+        .quantidade {
+            gap: 10px;
+    
+            p{
+                font-size: 1em;
+            }
+    
+            .preco {
+                font-size: 1.1em;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 670px) {
+    #card-produto-carrinho {
+        width: 100%;
+        justify-content: start;
+        gap: 20px;
+        padding-right: 5px;
+
+        .info-quantidade-delete{
+            flex-direction: column;
+        }
+
+        .info {
+            width: 100%;
+            .descricao {
+                display: none;
+            }
+        }
+
+        .quantidade {
+            padding-top: 10px;
+            gap: 0px;
+        }
+    }
+}
+
+@media screen and (max-width: 370px) {
+    #card-produto-carrinho {
+        gap: 10px;
+
+        .img img {
+            border: 1px solid white;
+            width: 110px;
+            height: 140px;
+        }
+
+        .info {
+            width: 100%;
+            .nome-produto{
+                font-size: 0.7em;
+            }
+        }
+
+        .quantidade{
+            p{
+                font-size: 0.8em;
+            }
+    
+            .preco {
+                font-size: 0.8em;
+            }
+        }
+    }
 }
