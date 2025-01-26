@@ -4,9 +4,8 @@
     width: 100%;
 
     .input-pesquisa {
-        width: 100%;
+        width: 1000px;
         margin: 0px auto;
-        padding-inline: 30px;
 
         input {
             width: 350px;
@@ -95,7 +94,7 @@
 @media screen and (max-width: 730px) {
     #produtos {
         .input-pesquisa {
-            margin: 100px auto 0px auto;
+            margin: 50px auto 0px auto;
         }
     }    
 }

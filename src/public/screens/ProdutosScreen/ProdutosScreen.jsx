@@ -79,15 +79,14 @@ const ProdutosScreen = () => {
 
     return (
         <div id='produtos'>
-            <div className="input-pesquisa">
-                <input
-                    type="text"
-                    placeholder="Oque deseja buscar?"
-                    onChange={(e) => filtrarPesquisaDebounce(e.target.value)}
-                />
-            </div>
-
             <div className='container-produtos'>
+                <div className="input-pesquisa">
+                    <input
+                        type="text"
+                        placeholder="Oque deseja buscar?"
+                        onChange={(e) => filtrarPesquisaDebounce(e.target.value)}
+                    />
+                </div>
                 {manicurePedicure.length > 0 && (
                     <ColecaoProdutos
                         colecao={{ array: manicurePedicure, name: 'manicurePedicure' }}
