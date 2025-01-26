@@ -51,3 +51,21 @@
     transition: 1s;
     cursor: pointer;
 }
+
+@media screen and (max-width: 450px) {
+    #produto {
+        height: 250px;
+
+        h4{
+            font-size: 12px;
+            margin-block: 0;
+        }
+
+        .quantidade {
+            padding-block: 0px;
+            span {
+                font-size: 20px;
+            }
+        }
+    }    
+}

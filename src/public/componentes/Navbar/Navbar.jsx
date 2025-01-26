@@ -6,6 +6,7 @@ import { useState } from 'react';
 const Navbar = () => {
     const [mobileMenu, setMobileMenu] = useState(false);
     const path = useLocation().pathname;
+    console.log(path);
 
     return (
         <div id="navbar">
