@@ -25,6 +25,7 @@
         margin-block: 10px;
         display: flex;
         justify-content: center;
+        align-items: center;
         column-gap: 10px;
         padding-block: 10px;
 
