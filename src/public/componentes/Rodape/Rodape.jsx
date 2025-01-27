@@ -1,5 +1,6 @@
 import './Rodape.css'
 import { FaWhatsapp, FaInstagram, FaFacebook } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 export const Rodape = () => {
     return (
@@ -22,15 +23,15 @@ export const Rodape = () => {
                 <div className="categorias">
                     <h3>Categorias</h3>
                     <ul>
-                        <a href="produtos.html#manicurePedicure">
+                        <Link to='/produtos?colecao=manicurePedicure' >
                             <li>Manicure e Pedicure</li>
-                        </a>
-                        <a href="produtos.html#salao">
+                        </Link>
+                        <Link to='/produtos?colecao=salao' >
                             <li>Salão</li>
-                        </a>
-                        <a href="produtos.html#lash">
+                        </Link>
+                        <Link to='/produtos?colecao=lash' >
                             <li>Lash Designer</li>
-                        </a>
+                        </Link>
                     </ul>
                 </div>
 
@@ -46,7 +47,7 @@ export const Rodape = () => {
             </div>
 
             <div className="icones">
-                <a href="https://contate.me/adrianacosmeticos">
+                <a href="https://contate.me/adrianacosmeticos">z
                     <FaWhatsapp className='icon' size={35}/>
                 </a>
                 <a href="https://www.instagram.com/adricosmeticoscuritiba/">

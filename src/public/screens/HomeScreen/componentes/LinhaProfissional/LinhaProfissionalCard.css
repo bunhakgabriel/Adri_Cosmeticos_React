@@ -17,7 +17,7 @@
             width: 350px;
             height: 280px;
 
-            button {
+            .link {
                 text-decoration: none;
                 border: 1px solid gray;
                 background-color: transparent;
@@ -27,6 +27,7 @@
                 left: 10px;
                 border-radius: 5px;
                 padding: 5px;
+                color: black;
 
                 &:hover {
                  cursor: pointer;   

@@ -8,7 +8,7 @@ import Entrega from './componentes/Entrega/Entrega';
 
 const HomeScreen = () => {
     const textTypewriter = 'Grandes marcas e excelentes produtos.';
-    
+
     return (
         <div id='home-screen'>
             <div className='typewriter'>
@@ -19,7 +19,12 @@ const HomeScreen = () => {
             <div className='linhas-profissionais'>
                 {linhasProfissionais.map((linha, index) => {
                     return (
-                        <LinhaProfissionalCard key={index} url1={linha.url1} url2={linha.url2}>
+                        <LinhaProfissionalCard
+                            key={index}
+                            url1={linha.url1}
+                            url2={linha.url2}
+                            colecao={linha.colecao}
+                        >
                             <h1>{linha.titulo}</h1>
                         </LinhaProfissionalCard>
                     )
