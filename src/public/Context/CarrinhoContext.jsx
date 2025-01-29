@@ -1,9 +1,11 @@
-import { createContext, useState } from "react"
+import { createContext, useRef, useState } from "react"
 
 export const CarrinhoContext = createContext();
 
 export const CarrinhoProvider = ({ children }) => {
 
+    const mapaRef = useRef(null);
+    const contatoRef = useRef(null);
     const [carrinho, setCarrinho] = useState(localStorage.carrinho ? JSON.parse(localStorage.carrinho) : []);
     const [totalProdutos, setTotalProdutos] = useState(
         localStorage.carrinho ?
@@ -72,7 +74,9 @@ export const CarrinhoProvider = ({ children }) => {
                 adicionarAoCarrinho,
                 removerDoCarrinho,
                 zerarQuantidade,
-                totalProdutos
+                totalProdutos,
+                mapaRef,
+                contatoRef
             }}>
             {children}
         </CarrinhoContext.Provider>

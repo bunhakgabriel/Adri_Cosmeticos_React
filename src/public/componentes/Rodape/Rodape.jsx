@@ -1,10 +1,14 @@
+import { useContext } from 'react';
 import './Rodape.css'
 import { FaWhatsapp, FaInstagram, FaFacebook } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { CarrinhoContext } from '../../Context/CarrinhoContext';
 
 export const Rodape = () => {
+    const { contatoRef } = useContext(CarrinhoContext);
+
     return (
-        <div id="rodape">
+        <div id="rodape" ref={contatoRef}>
             <h1>AdriCosméticos</h1>
 
             <div className="flex-bloco8">

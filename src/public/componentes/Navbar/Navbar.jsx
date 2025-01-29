@@ -1,11 +1,18 @@
 import './Navbar.css'
 import { Link, useLocation } from 'react-router-dom';
 import { IoIosMenu, IoMdClose } from "react-icons/io";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { CarrinhoContext } from '../../Context/CarrinhoContext';
 
 const Navbar = () => {
     const [mobileMenu, setMobileMenu] = useState(false);
     const path = useLocation().pathname;
+    const { contatoRef, mapaRef } = useContext(CarrinhoContext);
+
+    const scrollPage = (ref) => {
+        setMobileMenu(false)
+        ref.current.scrollIntoView({ behavior: 'smooth' });
+    }
 
     return (
         <div id="navbar">
@@ -16,7 +23,7 @@ const Navbar = () => {
                     size={50}
                     onClick={() => setMobileMenu(true)}
                 />
-                <IoMdClose 
+                <IoMdClose
                     style={{ display: mobileMenu ? 'block' : 'none' }}
                     color='white'
                     size={50}
@@ -24,19 +31,42 @@ const Navbar = () => {
             </div>
             <ul className={mobileMenu ? 'show-menu' : 'hidden-menu'} >
                 <li>
-                    <Link className={`link ${path === '/' ? 'active' : ''}`} to="/">Home</Link>
+                    <Link
+                        onClick={() => setMobileMenu(false)}
+                        className={`link ${path === '/' ? 'active' : ''}`}
+                        to="/">
+                        Home
+                    </Link>
                 </li>
                 <li>
-                    <Link className={`link ${path === '/produtos' ? 'active' : ''}`} to="/produtos">Produtos</Link>
+                    <Link
+                        onClick={() => setMobileMenu(false)}
+                        className={`link ${path === '/produtos' ? 'active' : ''}`}
+                        to="/produtos">
+                        Produtos
+                    </Link>
                 </li>
                 <li>
-                    <Link className='link'>Como Chegar</Link>
+                    <Link
+                        onClick={() => scrollPage(mapaRef)}
+                        className='link'>
+                        Como Chegar
+                    </Link>
                 </li>
                 <li>
-                    <Link className='link'>Fale conosco</Link>
+                    <Link
+                        onClick={() => scrollPage(contatoRef)}
+                        className='link'>
+                        Fale conosco
+                    </Link>
                 </li>
                 <li>
-                    <Link className={`link ${path === '/carrinho' ? 'active' : ''}`} to="/carrinho">Carrinho</Link>
+                    <Link
+                        onClick={() => setMobileMenu(false)}
+                        className={`link ${path === '/carrinho' ? 'active' : ''}`}
+                        to="/carrinho">
+                        Carrinho
+                    </Link>
                 </li>
             </ul>
         </div>
