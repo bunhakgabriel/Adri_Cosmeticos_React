@@ -4,8 +4,7 @@ import { IoAdd, IoRemoveOutline } from "react-icons/io5";
 const Modal = ({ produto, abrirModal, colecao }) => {
     const message = 
         `
-        Olá, boa tarde! Tenho interesse em um de seus produtos, 
-        gostaria de saber mais informações sobre o(a) ${produto.produto}
+        Olá, boa tarde! Tenho interesse em um de seus produtos, gostaria de saber mais informações sobre o(a) ${produto.produto}
         `
     const whatsappLink = `https://wa.me/5541996983316?text=${message}`;
     
