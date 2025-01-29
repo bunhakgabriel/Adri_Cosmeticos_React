@@ -8,7 +8,7 @@ export const Rodape = () => {
     const { contatoRef } = useContext(CarrinhoContext);
 
     return (
-        <div id="rodape" ref={contatoRef}>
+        <div id="rodape">
             <h1>AdriCosméticos</h1>
 
             <div className="flex-bloco8">
@@ -40,25 +40,27 @@ export const Rodape = () => {
                 </div>
 
                 <div className="faleConosco">
-                    <h3>Fale Conosco</h3>
-                    <ul>
-                        <li>Rua Tijucas do Sul, 247 Loja 1, Curitiba - PR - 81900-080</li>
-                        <li>Celular: (41) 99698-3316</li>
-                        <li>WhatsApp: (41) 99698-3316</li>
-                        <li>E-mail: adricosmeticos@gmail.com</li>
-                    </ul>
+                    <div ref={contatoRef}>
+                        <h3>Fale Conosco</h3>
+                        <ul>
+                            <li>Rua Tijucas do Sul, 247 Loja 1, Curitiba - PR - 81900-080</li>
+                            <li>Celular: (41) 99698-3316</li>
+                            <li>WhatsApp: (41) 99698-3316</li>
+                            <li>E-mail: adricosmeticos@gmail.com</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <div className="icones">
                 <a href="https://contate.me/adrianacosmeticos">z
-                    <FaWhatsapp className='icon' size={35}/>
+                    <FaWhatsapp className='icon' size={35} />
                 </a>
                 <a href="https://www.instagram.com/adricosmeticoscuritiba/">
-                    <FaInstagram className='icon' size={35}/>
+                    <FaInstagram className='icon' size={35} />
                 </a>
                 <a href="https://www.facebook.com/adri.cosmeticos.2023">
-                    <FaFacebook className='icon' size={35}/>
+                    <FaFacebook className='icon' size={35} />
                 </a>
             </div>
 
