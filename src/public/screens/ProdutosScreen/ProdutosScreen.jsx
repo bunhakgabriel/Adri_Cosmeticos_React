@@ -38,6 +38,7 @@ const ProdutosScreen = () => {
     const salaoComponentRef = useRef(null); 
     const lashComponentRef = useRef(null); 
     const [data, setData] = useState({ manicurePedicure: [], salao: [], lash: [] })
+    const [scroll, setScroll] = useState(true)
 
     const [searchParams] = useSearchParams();
     const colecao = searchParams.get('colecao');
@@ -60,8 +61,9 @@ const ProdutosScreen = () => {
             lash: lashComponentRef
         }[colecao]
 
-        if (ref && ref.current) {
+        if (ref && ref.current && scroll) {
             ref.current.scrollIntoView({ behavior: 'smooth' });
+            setScroll(false);
         }
         setTimeout(() => { setLoading(false); }, ref ? 5500 : 1500);
 

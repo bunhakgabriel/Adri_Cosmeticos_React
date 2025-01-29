@@ -22,7 +22,7 @@ const ModalFormulario = ({ finalizarPedido, closeModal }) => {
                 <div className='child-div-modal' >
                     <div className='container-icone'>
                         <div>
-                            <FaUserCircle size={70} />
+                            <FaUserCircle className='icon-usuario' size={70} />
                             <p>Dados do cliente</p>
                         </div>
                     </div>
@@ -45,7 +45,8 @@ const ModalFormulario = ({ finalizarPedido, closeModal }) => {
                             required
                             onChange={(e) => setEndereco(e.target.value)}
                         />
-                        <div style={{ marginTop: '30px' }}>
+                        <p className='obs' >Obs: O pedido sera encaminhado pelo WhatsApp</p>
+                        <div className='buttons'>
                             <button onClick={() => enviarPedido()} >Finalizar</button>
                             <button onClick={() => closeModal(false)} >Cancelar</button>
                         </div>
