@@ -14,14 +14,20 @@ const CardProdutoCarrinho = ({ produto }) => {
         zerarQuantidade
     } = useContext(CarrinhoContext);
 
+    const salvarStorage = () => {
+        localStorage.carrinho = JSON.stringify(carrinho);
+    }
+
     const addCarrinho = () => {
         adicionarAoCarrinho(produto);
-        setRefreshComponent(!refreshComponent)
+        setRefreshComponent(!refreshComponent);
+        salvarStorage();
     }
 
     const removeCarrinho = () => {
         removerDoCarrinho(produto);
-        setRefreshComponent(!refreshComponent)
+        setRefreshComponent(!refreshComponent);
+        salvarStorage();
     }
 
     const init = () => {

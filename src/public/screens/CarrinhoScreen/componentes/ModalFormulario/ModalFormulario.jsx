@@ -4,7 +4,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { CarrinhoContext } from '../../../../Context/CarrinhoContext';
 import gerarPedido from './utils/GerarPedido';
 
-const ModalFormulario = ({ finalizarPedido, closeModal }) => {
+const ModalFormulario = ({ finalizarPedido, setFinalizarPedido }) => {
 
     const { carrinho, totalProdutos } = useContext(CarrinhoContext);
     const [nome, setNome] = useState('');
@@ -13,7 +13,10 @@ const ModalFormulario = ({ finalizarPedido, closeModal }) => {
 
     const enviarPedido = () => {
         if(!nome || !celular || !endereco) return;
+        localStorage.carrinho = JSON.stringify([]);
         gerarPedido({ nome, celular, endereco }, carrinho, totalProdutos);
+        setFinalizarPedido(false);
+        window.location.reload();
     }
 
     if (finalizarPedido) {
@@ -48,7 +51,7 @@ const ModalFormulario = ({ finalizarPedido, closeModal }) => {
                         <p className='obs' >Obs: O pedido sera encaminhado pelo WhatsApp</p>
                         <div className='buttons'>
                             <button onClick={() => enviarPedido()} >Finalizar</button>
-                            <button onClick={() => closeModal(false)} >Cancelar</button>
+                            <button onClick={() => setFinalizarPedido(false)} >Cancelar</button>
                         </div>
                     </form>
                 </div>
