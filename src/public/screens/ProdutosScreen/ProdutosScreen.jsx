@@ -34,11 +34,13 @@ const ColecaoProdutos = ({ colecao, title, abrirModal }) => {
 const ProdutosScreen = () => {
     const backendCalled = useRef(false);
     const [loading, setLoading] = useState(true);
-    const manicureComponentRef = useRef(null); 
-    const salaoComponentRef = useRef(null); 
-    const lashComponentRef = useRef(null); 
+    const manicureComponentRef = useRef(null);
+    const salaoComponentRef = useRef(null);
+    const lashComponentRef = useRef(null);
     const [data, setData] = useState({ manicurePedicure: [], salao: [], lash: [] })
+    const [copyData, setCopyData] = useState({ manicurePedicure: [], salao: [], lash: [] })
     const [scroll, setScroll] = useState(true)
+    const [html, setHtml] = useState('');
 
     const [searchParams] = useSearchParams();
     const colecao = searchParams.get('colecao');
@@ -49,23 +51,34 @@ const ProdutosScreen = () => {
                 backendCalled.current = true;
                 const produtos = await getColecaoProdutos();
                 setData(produtos)
+                setCopyData(produtos)
             }
         }
         fetchData();
     }, []);
 
     useEffect(() => {
-        const ref = {
-            manicurePedicure: manicureComponentRef,
-            salao: salaoComponentRef,
-            lash: lashComponentRef
-        }[colecao]
+        const init = async () => {
+            const ref = {
+                manicurePedicure: manicureComponentRef,
+                salao: salaoComponentRef,
+                lash: lashComponentRef
+            }[colecao]
+    
+            const HTML = await gerarHtml();
+            setHtml(HTML);
 
-        if (ref && ref.current && scroll) {
-            ref.current.scrollIntoView({ behavior: 'smooth' });
-            setScroll(false);
+            setTimeout(() => {
+                if (ref && ref.current && scroll) {
+                    console.log('teste')
+                    ref.current.scrollIntoView({ behavior: 'smooth' });
+                    setScroll(false);
+                }
+            }, 1500);
+            setLoading(false);  
+
         }
-        setTimeout(() => { setLoading(false); }, ref ? 5500 : 1500);
+        init();
 
     }, [data]);
 
@@ -81,7 +94,7 @@ const ProdutosScreen = () => {
     }
 
     const filtrarPesquisa = async (value) => {
-        const produtos = await getColecaoProdutos();
+        const produtos = copyData;
         setData({
             manicurePedicure: produtos.manicurePedicure.filter(produto => produto.produto.toLowerCase().includes(value.toLowerCase())),
             salao: produtos.salao.filter(produto => produto.produto.toLowerCase().includes(value.toLowerCase())),
@@ -91,47 +104,54 @@ const ProdutosScreen = () => {
 
     const filtrarPesquisaDebounce = debounceAsync(filtrarPesquisa, 500);
 
-    return (
-        <div id='produtos'>
-            <Loading load={loading} />
-            <div className='container-produtos'>
-                <div className="input-pesquisa">
-                    <input
-                        type="text"
-                        placeholder="Oque deseja buscar?"
-                        onChange={(e) => filtrarPesquisaDebounce(e.target.value)}
-                    />
+    const gerarHtml = () => {
+        return new Promise((res, rej) => {
+            const content = (
+                <div id='produtos'>
+                    <Loading load={loading} />
+                    <div className='container-produtos'>
+                        <div className="input-pesquisa">
+                            <input
+                                type="text"
+                                placeholder="Oque deseja buscar?"
+                                onChange={(e) => filtrarPesquisaDebounce(e.target.value)}
+                            />
+                        </div>
+                        {data.manicurePedicure.length > 0 && (
+                            <div ref={manicureComponentRef}>
+                                <ColecaoProdutos
+                                    colecao={{ array: data.manicurePedicure, name: 'manicurePedicure' }}
+                                    title='Linha profissional manicure e pedicure'
+                                    abrirModal={abrirModal}
+                                />
+                            </div>
+                        )}
+                        {data.salao.length > 0 && (
+                            <div ref={salaoComponentRef}>
+                                <ColecaoProdutos
+                                    colecao={{ array: data.salao, name: 'salao' }}
+                                    title='Linha profissional salão'
+                                    abrirModal={abrirModal}
+                                />
+                            </div>
+                        )}
+                        {data.lash.length > 0 && (
+                            <div ref={lashComponentRef}>
+                                <ColecaoProdutos
+                                    colecao={{ array: data.lash, name: 'lash' }}
+                                    title='Lash Designer'
+                                    abrirModal={abrirModal}
+                                />
+                            </div>
+                        )}
+                    </div>
                 </div>
-                {data.manicurePedicure.length > 0 && (
-                    <div ref={manicureComponentRef}>
-                        <ColecaoProdutos
-                            colecao={{ array: data.manicurePedicure, name: 'manicurePedicure' }}
-                            title='Linha profissional manicure e pedicure'
-                            abrirModal={abrirModal}
-                        />
-                    </div>
-                )}
-                {data.salao.length > 0 && (
-                    <div ref={salaoComponentRef}>
-                        <ColecaoProdutos
-                            colecao={{ array: data.salao, name: 'salao' }}
-                            title='Linha profissional salão'
-                            abrirModal={abrirModal}
-                        />
-                    </div>
-                )}
-                {data.lash.length > 0 && (
-                    <div ref={lashComponentRef}>
-                        <ColecaoProdutos
-                            colecao={{ array: data.lash, name: 'lash' }}
-                            title='Lash Designer'
-                            abrirModal={abrirModal}
-                        />
-                    </div>
-                )}
-            </div>
-        </div>
-    )
+            );
+            res(content);
+        })
+    }
+
+    return html;
 }
 
 export default ProdutosScreen;
