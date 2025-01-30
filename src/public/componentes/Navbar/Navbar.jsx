@@ -48,7 +48,7 @@ const Navbar = () => {
                 </li>
                 <li>
                     <Link
-                        onClick={() => setMobileMenu(false)}
+                        onClick={() => scrollPage()}
                         className={`link ${path === '/produtos' ? 'active' : ''}`}
                         to="/produtos">
                         Produtos
