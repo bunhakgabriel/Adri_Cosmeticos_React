@@ -14,6 +14,14 @@ const Navbar = () => {
         ref.current.scrollIntoView({ behavior: 'smooth' });
     }
 
+    const scrollToTop = () => {
+        setMobileMenu(false)
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
     return (
         <div id="navbar">
             <div className='container-icon' >
@@ -32,7 +40,7 @@ const Navbar = () => {
             <ul className={mobileMenu ? 'show-menu' : 'hidden-menu'} >
                 <li>
                     <Link
-                        onClick={() => setMobileMenu(false)}
+                        onClick={() => scrollToTop()}
                         className={`link ${path === '/' ? 'active' : ''}`}
                         to="/">
                         Home
@@ -46,13 +54,13 @@ const Navbar = () => {
                         Produtos
                     </Link>
                 </li>
-                <li>
+                {path === '/' && <li>
                     <Link
                         onClick={() => scrollPage(mapaRef)}
                         className='link'>
                         Como Chegar
                     </Link>
-                </li>
+                </li>}
                 <li>
                     <Link
                         onClick={() => scrollPage(contatoRef)}
@@ -62,7 +70,7 @@ const Navbar = () => {
                 </li>
                 <li>
                     <Link
-                        onClick={() => setMobileMenu(false)}
+                        onClick={() => scrollToTop()}
                         className={`link ${path === '/carrinho' ? 'active' : ''}`}
                         to="/carrinho">
                         Carrinho
