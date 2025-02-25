@@ -12,8 +12,8 @@ function App() {
       <CarrinhoProvider>
         <Navbar />
         <Outlet />
+        <Rodape />
       </CarrinhoProvider>
-      <Rodape />
     </>
   )
 }

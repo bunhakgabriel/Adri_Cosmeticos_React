@@ -14,14 +14,20 @@ const CardProdutoCarrinho = ({ produto }) => {
         zerarQuantidade
     } = useContext(CarrinhoContext);
 
+    const salvarStorage = () => {
+        localStorage.carrinho = JSON.stringify(carrinho);
+    }
+
     const addCarrinho = () => {
         adicionarAoCarrinho(produto);
-        setRefreshComponent(!refreshComponent)
+        setRefreshComponent(!refreshComponent);
+        salvarStorage();
     }
 
     const removeCarrinho = () => {
         removerDoCarrinho(produto);
-        setRefreshComponent(!refreshComponent)
+        setRefreshComponent(!refreshComponent);
+        salvarStorage();
     }
 
     const init = () => {
@@ -34,42 +40,56 @@ const CardProdutoCarrinho = ({ produto }) => {
 
     init();
 
+    const truncateText = (text, maxLength) => {
+        if (text.length <= maxLength) {
+            return text;
+        }
+
+        const truncated = text.slice(0, maxLength);
+        const lastSpaceIndex = truncated.lastIndexOf(" ");
+        return truncated.slice(0, lastSpaceIndex) + "...";
+    }
+
     return (
         <div id='card-produto-carrinho' >
             <div className='img'>
-                <img height={180} width={150} src={produto.url} />
+                <img src={produto.url} />
             </div>
-            <div className='info'>
-                <h3 className='nome-produto' >
-                    {produto.produto}
-                </h3>
-                <h3 className='descricao'>
-                    {produto.descricao}
-                </h3>
-            </div>
-            <div className='quantidade'>
-                <p>Quantidade</p>
-                <div>
-                    <IoRemoveOutline
-                        className='icone'
-                        size={20}
-                        onClick={removeCarrinho}
-                    />
-                    <span>{produto.quantidade || 0}</span>
-                    <IoAdd
-                        className='icone'
-                        size={20}
-                        onClick={addCarrinho}
-                    />
+            <div className='info-quantidade-delete'>
+                <div className='info'>
+                    <h3 className='nome-produto' >
+                        {produto.produto}
+                    </h3>
+                    <h3 className='descricao'>
+                        {truncateText(produto.descricao, 390)}
+                    </h3>
                 </div>
-                <p className='preco'>R$ {produto.preco}</p>
-            </div>
-            <div className='delete' >
-                <MdDelete 
-                size={30} 
-                color='white' 
-                onClick={() => zerarQuantidade(produto)}
-                />
+                <div className='quantidade-delete' >
+                    <div className='quantidade'>
+                        <p>Quantidade</p>
+                        <div>
+                            <IoRemoveOutline
+                                className='icone'
+                                size={20}
+                                onClick={removeCarrinho}
+                            />
+                            <span>{produto.quantidade || 0}</span>
+                            <IoAdd
+                                className='icone'
+                                size={20}
+                                onClick={addCarrinho}
+                            />
+                        </div>
+                        <p className='preco'>R$ {produto.preco}</p>
+                    </div>
+                    <div className='delete' >
+                        <MdDelete
+                            size={25}
+                            color='white'
+                            onClick={() => zerarQuantidade(produto)}
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     )

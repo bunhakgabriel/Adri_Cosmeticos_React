@@ -11,6 +11,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 100;
 
     .child-div-modal {
         border: 1px solid white;
@@ -27,12 +28,18 @@
             font-size: 1.3em;
             display: flex;
             justify-content: center;
+            align-items: center;
 
             div {
                 display: flex;
                 align-items: center;
                 gap: 20px;
                 width: 70%;
+
+                p{
+                    padding: 0;
+                    margin: 0;
+                }
             }
         }
 
@@ -61,8 +68,93 @@
 
             }
 
+            .obs{
+                color: gray;
+                width: 70%;
+                font-size: 0.8em;
+                margin: 20px 0px 0px 0px;
+            }
+
+            .buttons{
+                margin-top: 20px;
+                display: flex;
+                justify-content: flex-start;
+                width: 70%;
+                gap: 20px;
+                
+                button{
+                    background-color: transparent;
+                    border: 1px solid rgba(0, 0, 0, 0.8);
+                    border-radius: 10px;
+                    padding: 5px;
+                    font-size: 0.8em;
+                    color: rgba(0, 0, 0, 0.8);
+
+                    &:active{
+                        opacity: 0;
+                    }
+
+                }
+
+            }
+
         }
 
     }
 
+}
+
+@media screen and (max-width: 450px) {
+    #modal-formulario{
+        .child-div-modal{
+            width: 90%;
+            height: 90%;
+
+            .container-icone {
+                font-size: 1.2em;
+                justify-content: center;
+                width: 90%;
+
+                div{
+                    p{
+                        width: 90%;
+                    }
+                }
+
+            }
+
+            form{
+                input{
+                    width: 85%;
+                }
+
+                .obs{
+                    width: 85%;
+                }
+
+                .buttons{
+                    width: 85%;
+                }
+            }
+
+        }
+    }
+}
+
+@media screen and (max-width: 375px) {
+    #modal-formulario{
+        .child-div-modal{
+            width: 95%;
+            height: 95%;
+
+            .container-icone {
+                font-size: 1em;
+
+                div{
+                    gap: 10px;
+                }
+
+            }
+        }
+    }
 }

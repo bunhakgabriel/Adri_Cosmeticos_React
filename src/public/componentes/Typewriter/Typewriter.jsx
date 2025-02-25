@@ -1,9 +1,11 @@
 import Typist from "react-typist-component";
 
-const Typerwriter = ({ texto, style }) => {
+import './Typewriter.css'
+
+const Typerwriter = ({ texto }) => {
     return (
         <Typist typingDelay={100}>
-            <span style={ style }>{texto}</span>
+            <span id="text-typewriter">{texto}</span>
         </Typist>
     )
 }

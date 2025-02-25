@@ -41,7 +41,7 @@
 
     .total-carrinho {
         color: white;
-        width: 28%;
+        width: 300px;
         height: 250px;
         display: flex;
         flex-direction: column;
@@ -81,7 +81,8 @@
             display: flex;
             justify-content: space-between;
 
-            button, .link {
+            button,
+            .link {
                 text-decoration: none;
                 background-color: transparent;
                 border: none;
@@ -92,7 +93,7 @@
                 line-height: 30px;
                 font-size: 0.8em;
 
-                &:hover{
+                &:hover {
                     background-color: gray;
                     color: white;
                     border: none;
@@ -106,7 +107,7 @@
                 color: #9353ff;
             }
 
-            :last-child{
+            :last-child {
                 color: white;
                 background-color: #9353ff;
             }
@@ -115,4 +116,83 @@
 
     }
 
+}
+
+@media screen and (max-width: 1171px) {
+    #carrinho-screen {
+        .title-carrinho-screen {
+            order: 1;
+        }
+
+        .itens-carrinho {
+            width: 100%;
+            order: 3;
+        }
+
+        .total-carrinho{
+            order: 2;
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: 870px) {
+    #carrinho-screen {
+        margin: 50px 0px;
+        width: 100vw;
+
+        .title-carrinho-screen {
+            font-size: 2.3em;
+        }
+
+        .itens-carrinho {
+            padding: 15px 0px 15px 15px;
+            width: 95%;
+        }
+
+        .total-carrinho{
+            width: 95%;
+        }
+    }
+}
+
+@media screen and (max-width: 730px) {
+    #carrinho-screen {
+        margin-top: 135px;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    #carrinho-screen {
+        .title-carrinho-screen {
+            font-size: 1.8em;
+        }
+
+        .itens-carrinho{
+            width: 90%;
+            height: 330px;
+        }
+
+        .total-carrinho{
+            width: 90%;
+        }
+    }
+}
+
+@media screen and (max-width: 370px) {
+    #carrinho-screen {
+        .itens-carrinho{
+            padding: 15px 0px 15px 8px;
+        }
+
+        .total-carrinho{
+            .valor{
+                height: 300px;
+
+                span{
+                    font-size: 1em;
+                }
+            }
+        }
+    }
 }

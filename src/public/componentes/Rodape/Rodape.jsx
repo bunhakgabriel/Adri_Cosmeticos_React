@@ -1,7 +1,12 @@
+import { useContext } from 'react';
 import './Rodape.css'
 import { FaWhatsapp, FaInstagram, FaFacebook } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+import { CarrinhoContext } from '../../Context/CarrinhoContext';
 
 export const Rodape = () => {
+    const { contatoRef } = useContext(CarrinhoContext);
+
     return (
         <div id="rodape">
             <h1>AdriCosméticos</h1>
@@ -22,38 +27,40 @@ export const Rodape = () => {
                 <div className="categorias">
                     <h3>Categorias</h3>
                     <ul>
-                        <a href="produtos.html#manicurePedicure">
+                        <Link to='/produtos?colecao=manicurePedicure' >
                             <li>Manicure e Pedicure</li>
-                        </a>
-                        <a href="produtos.html#salao">
+                        </Link>
+                        <Link to='/produtos?colecao=salao' >
                             <li>Salão</li>
-                        </a>
-                        <a href="produtos.html#lash">
+                        </Link>
+                        <Link to='/produtos?colecao=lash' >
                             <li>Lash Designer</li>
-                        </a>
+                        </Link>
                     </ul>
                 </div>
 
                 <div className="faleConosco">
-                    <h3>Fale Conosco</h3>
-                    <ul>
-                        <li>Rua Tijucas do Sul, 247 Loja 1, Curitiba - PR - 81900-080</li>
-                        <li>Celular: (41) 99698-3316</li>
-                        <li>WhatsApp: (41) 99698-3316</li>
-                        <li>E-mail: adricosmeticos@gmail.com</li>
-                    </ul>
+                    <div ref={contatoRef}>
+                        <h3>Fale Conosco</h3>
+                        <ul>
+                            <li>Rua Tijucas do Sul, 247 Loja 1, Curitiba - PR - 81900-080</li>
+                            <li>Celular: (41) 99698-3316</li>
+                            <li>WhatsApp: (41) 99698-3316</li>
+                            <li>E-mail: adricosmeticos@gmail.com</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <div className="icones">
-                <a href="https://contate.me/adrianacosmeticos">
-                    <FaWhatsapp className='icon' size={35}/>
+                <a href="https://contate.me/adrianacosmeticos">z
+                    <FaWhatsapp className='icon' size={35} />
                 </a>
                 <a href="https://www.instagram.com/adricosmeticoscuritiba/">
-                    <FaInstagram className='icon' size={35}/>
+                    <FaInstagram className='icon' size={35} />
                 </a>
                 <a href="https://www.facebook.com/adri.cosmeticos.2023">
-                    <FaFacebook className='icon' size={35}/>
+                    <FaFacebook className='icon' size={35} />
                 </a>
             </div>
 

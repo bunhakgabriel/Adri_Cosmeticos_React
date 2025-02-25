@@ -9,6 +9,10 @@ export const Produto = ({ produto, abrirModal, colecao }) => {
     const [refreshComponent, setRefreshComponent] = useState(false);
     const { carrinho, adicionarAoCarrinho, removerDoCarrinho } = useContext(CarrinhoContext);
 
+    const salvarStorage = () => {
+        localStorage.carrinho = JSON.stringify(carrinho);
+    }
+
     const addCarrinho = () => {
         adicionarAoCarrinho(produto);
         setRefreshComponent(!refreshComponent)
@@ -20,6 +24,7 @@ export const Produto = ({ produto, abrirModal, colecao }) => {
     }
 
     const init = () => {
+        salvarStorage();
         carrinho.forEach(itemCarrinho => {
             if(itemCarrinho.codigo === produto.codigo){
                 produto.quantidade = itemCarrinho.quantidade

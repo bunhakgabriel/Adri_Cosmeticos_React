@@ -10,6 +10,13 @@ const CarrinhoScreen = () => {
     const { carrinho, totalProdutos } = useContext(CarrinhoContext)
     const [finalizarPedido, setFinalizarPedido] = useState(false);
 
+    const concluirPedido = () => {
+        if(carrinho.length === 0) {
+            return alert('O carrinho esta vazio! Adicione algum produto para finalizar o pedido.');
+        }
+        setFinalizarPedido(true);
+    }
+
     return (
         <div id='carrinho-screen'>
             <h1 className='title-carrinho-screen' >Carrinho de Compras</h1>
@@ -49,10 +56,10 @@ const CarrinhoScreen = () => {
                 </div>
                 <div className='funcoes'>
                     <Link className='link' to='/produtos'>Adicionar mais itens</Link>
-                    <button onClick={() => setFinalizarPedido(true)}>Finalizar pedido</button>
+                    <button onClick={() => concluirPedido()}>Finalizar pedido</button>
                 </div>
             </div>
-            <ModalFormulario finalizarPedido={finalizarPedido} closeModal={setFinalizarPedido} />
+            <ModalFormulario finalizarPedido={finalizarPedido} setFinalizarPedido={setFinalizarPedido} />
         </div>
     )
 }

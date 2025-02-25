@@ -8,21 +8,26 @@
 
     .typewriter {
         margin: 50px auto;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
     }
 
     .linhas-profissionais {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
+        row-gap: 70px;
         column-gap: 40px;
-        margin: 120px 0px 140px 0px;
-
+        margin: 100px 0px 100px 0px;
+        width: 90%;
+        flex-wrap: wrap;
     }
 
     .como-chegar {
         margin: 80px auto 50px auto;
         width: 800px;
 
-        h1{
+        h1 {
             text-align: center;
             font-family: serif;
             font-weight: 100;
@@ -30,7 +35,7 @@
             margin: 0px 0px 30px 0px;
         }
 
-        iframe{
+        iframe {
             width: 100%;
         }
 
@@ -40,6 +45,106 @@
         display: flex;
         gap: 30px;
         padding-bottom: 50px;
+        justify-content: center;
     }
 
+}
+
+@media screen and (max-width: 500px) {
+
+    #home-screen {
+        .linhas-profissionais {
+            margin: 50px 0px 70px 0px;
+        }
+    }
+}
+
+@media screen and (max-width: 870px) {
+    #home-screen {
+        .como-chegar {
+            width: 85%;
+            height: 500px;
+    
+            iframe {
+                height: 85%;
+            }
+    
+            h1 {
+                height: 15%;
+                margin: 0px;
+            }
+        }
+
+        .imagens-loja {
+            img{
+                width: 45%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 730px) {
+    #home-screen{
+        .typewriter{
+            margin-top: 150px;
+        }
+    }
+}
+
+@media screen and (max-width: 670px) {
+    #home-screen{
+        .como-chegar {
+            width: 85%;
+            height: 380px;
+    
+            h1 {
+                font-size: 2.1em;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 620px) {
+    #home-screen {
+        .typewriter {
+            margin: 150px auto 25px auto;
+        }
+    }
+}
+
+@media screen and (max-width: 550px) {
+    #home-screen{
+        .como-chegar {
+            width: 90%;
+            height: 300px;
+    
+            iframe {
+                margin-top: 10px;
+                height: 80%;
+            }
+    
+            h1 {
+                font-size: 1.7em;
+                text-align: center;
+            }
+        }
+
+        .imagens-loja {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: 410px) {
+    #home-screen{
+        .como-chegar {
+            width: 90%;
+            height: 250px;
+            margin: 60px auto 30px auto;
+    
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    }
 }
