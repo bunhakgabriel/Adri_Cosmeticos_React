@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { IoIosMenu, IoMdClose } from "react-icons/io";
 import { useContext, useState } from 'react';
 import { CarrinhoContext } from '../../Context/CarrinhoContext';
+import { FaShoppingCart } from "react-icons/fa";
 
 const Navbar = () => {
     const [mobileMenu, setMobileMenu] = useState(false);
@@ -25,6 +26,11 @@ const Navbar = () => {
     return (
         <div id="navbar">
             <div className='container-icon' >
+                <Link
+                    onClick={() => scrollToTop()}
+                    to="/carrinho">
+                    <FaShoppingCart size={35} style={{ color: 'white' }} />
+                </Link>
                 <IoIosMenu
                     style={{ display: mobileMenu ? 'none' : 'block' }}
                     color='white'

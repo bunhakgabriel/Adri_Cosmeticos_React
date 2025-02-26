@@ -35,7 +35,8 @@ export const Produto = ({ produto, abrirModal, colecao }) => {
     init();
 
     return (
-        <div id='produto'>
+        <div id='produto' style={{ opacity: produto.estoque == 0 ? 0.5 : 1 }}>
+            {produto.estoque == 0 && <div className='indisponivel'>Indisponível</div>}
             <img className='img-produto' src={produto.url} onClick={() => abrirModal(produto, colecao)} />
             <h4>{produto.produto}</h4>
             <div className='quantidade'>

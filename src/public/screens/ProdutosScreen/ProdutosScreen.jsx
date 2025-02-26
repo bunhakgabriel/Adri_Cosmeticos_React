@@ -113,7 +113,7 @@ const ProdutosScreen = () => {
                         <div className="input-pesquisa">
                             <input
                                 type="text"
-                                placeholder="Oque deseja buscar?"
+                                placeholder="O que deseja buscar?"
                                 onChange={(e) => filtrarPesquisaDebounce(e.target.value)}
                             />
                         </div>
