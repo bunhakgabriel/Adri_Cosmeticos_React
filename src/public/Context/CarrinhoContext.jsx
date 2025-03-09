@@ -55,7 +55,7 @@ export const CarrinhoProvider = ({ children }) => {
     }
 
     const zerarQuantidade = (produto) => {
-        const array = [...carrinho];
+        const array = carrinho;
         const index = array.findIndex(item => item.codigo === produto.codigo);
         array.splice(index, 1)
         setCarrinho(array);

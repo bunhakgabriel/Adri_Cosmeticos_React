@@ -30,6 +30,12 @@ const CardProdutoCarrinho = ({ produto }) => {
         salvarStorage();
     }
 
+    const zerarQtd = (produto) => {
+        zerarQuantidade(produto);
+        setRefreshComponent(!refreshComponent);
+        salvarStorage();
+    }
+
     const init = () => {
         carrinho.forEach(itemCarrinho => {
             if (itemCarrinho.codigo === produto.codigo) {
@@ -86,7 +92,7 @@ const CardProdutoCarrinho = ({ produto }) => {
                         <MdDelete
                             size={25}
                             color='white'
-                            onClick={() => zerarQuantidade(produto)}
+                            onClick={() => zerarQtd(produto)}
                         />
                     </div>
                 </div>
