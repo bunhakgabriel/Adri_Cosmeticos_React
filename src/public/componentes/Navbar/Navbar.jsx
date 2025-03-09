@@ -15,19 +15,11 @@ const Navbar = () => {
         ref.current.scrollIntoView({ behavior: 'smooth' });
     }
 
-    const scrollToTop = () => {
-        setMobileMenu(false)
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-
     return (
         <div id="navbar">
             <div className='container-icon' >
                 <Link
-                    onClick={() => scrollToTop()}
+                    onClick={() => setMobileMenu(false)}
                     to="/carrinho">
                     <FaShoppingCart size={35} style={{ color: 'white' }} />
                 </Link>
@@ -46,7 +38,7 @@ const Navbar = () => {
             <ul className={mobileMenu ? 'show-menu' : 'hidden-menu'} >
                 <li>
                     <Link
-                        onClick={() => scrollToTop()}
+                        onClick={() => setMobileMenu(false)}
                         className={`link ${path === '/' ? 'active' : ''}`}
                         to="/">
                         Home
@@ -76,7 +68,7 @@ const Navbar = () => {
                 </li>
                 <li>
                     <Link
-                        onClick={() => scrollToTop()}
+                        onClick={() => setMobileMenu(false)}
                         className={`link ${path === '/carrinho' ? 'active' : ''}`}
                         to="/carrinho">
                         Carrinho

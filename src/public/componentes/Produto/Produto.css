@@ -58,10 +58,12 @@
 
 }
 
-#produto:has(.img-produto:hover) {
-    transform: scale(1.2);
-    transition: 1s;
-    cursor: pointer;
+@media screen and (min-width: 730px) {
+    #produto:has(.img-produto:hover) {
+        transform: scale(1.2);
+        transition: 1s;
+        cursor: pointer;
+    }
 }
 
 @media screen and (max-width: 450px) {

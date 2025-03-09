@@ -3,6 +3,7 @@ html, body {
   padding: 0;
   width: 100%;
   overflow-x: hidden; /* Para garantir que o scroll horizontal seja desativado */
+  scroll-behavior: auto !important;
 }
 
 * {
