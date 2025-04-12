@@ -6,6 +6,7 @@ import Modal from '../../componentes/Modal/Modal';
 import { debounceAsync } from '../../../utils/debounceTimeAsync';
 import Loading from '../../componentes/Loading/Loading';
 import { useSearchParams } from 'react-router-dom';
+import { useProduto } from '../../hooks/useProduto';
 
 const ColecaoProdutos = ({ colecao, title, abrirModal }) => {
     return (
@@ -33,7 +34,7 @@ const ColecaoProdutos = ({ colecao, title, abrirModal }) => {
 
 const ProdutosScreen = () => {
     const backendCalled = useRef(false);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const manicureComponentRef = useRef(null);
     const salaoComponentRef = useRef(null);
     const lashComponentRef = useRef(null);
@@ -45,13 +46,16 @@ const ProdutosScreen = () => {
     const [searchParams] = useSearchParams();
     const colecao = searchParams.get('colecao');
 
+    const { getProdutos } = useProduto();
+
     useEffect(() => {
         const fetchData = async () => {
             if (!backendCalled.current) {
                 backendCalled.current = true;
-                const produtos = await getColecaoProdutos();
-                setData(produtos)
-                setCopyData(produtos)
+                // const produtos = await getColecaoProdutos();
+                // setData(produtos)
+                // setCopyData(produtos)
+                getProdutos()
             }
         }
         fetchData();
