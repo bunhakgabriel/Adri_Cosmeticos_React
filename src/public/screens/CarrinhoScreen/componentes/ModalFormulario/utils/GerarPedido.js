@@ -5,7 +5,7 @@ Nome: ${nome}
 Celular: ${celular}
 Endereco: ${endereco}`;
 
-const formatarProduto = (produto, index) => `${index + 1} - ${produto.produto}
+const formatarProduto = (produto, index) => `${index + 1} - ${produto.nome}
 Código: ${produto.id}
 Quantidade: ${produto.quantidade}
 Preço(un): ${produto.preco}

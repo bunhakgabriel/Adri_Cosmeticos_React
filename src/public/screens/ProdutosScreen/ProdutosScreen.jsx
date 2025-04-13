@@ -100,9 +100,9 @@ const ProdutosScreen = () => {
     const filtrarPesquisa = async (value) => {
         const produtos = copyData;
         setData({
-            manicurePedicure: produtos.manicurePedicure.filter(produto => produto.produto.toLowerCase().includes(value.toLowerCase())),
-            salao: produtos.salao.filter(produto => produto.produto.toLowerCase().includes(value.toLowerCase())),
-            lash: produtos.lash.filter(produto => produto.produto.toLowerCase().includes(value.toLowerCase()))
+            manicurePedicure: produtos.manicurePedicure.filter(produto => produto.nome.toLowerCase().includes(value.toLowerCase())),
+            salao: produtos.salao.filter(produto => produto.nome.toLowerCase().includes(value.toLowerCase())),
+            lash: produtos.lash.filter(produto => produto.nome.toLowerCase().includes(value.toLowerCase()))
         })
     }
 

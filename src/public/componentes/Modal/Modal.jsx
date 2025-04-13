@@ -4,7 +4,7 @@ import { IoAdd, IoRemoveOutline } from "react-icons/io5";
 const Modal = ({ produto, abrirModal, colecao }) => {
     const message = 
         `
-        Olá, boa tarde! Tenho interesse em um de seus produtos, gostaria de saber mais informações sobre o(a) ${produto.produto}
+        Olá, boa tarde! Tenho interesse em um de seus produtos, gostaria de saber mais informações sobre o(a) ${produto.nome}
         `
     const whatsappLink = `https://wa.me/5541996983316?text=${message}`;
     
@@ -19,7 +19,7 @@ const Modal = ({ produto, abrirModal, colecao }) => {
                     <img src={produto.imagem} />
                     <div className='conteudo'>
                         <p>Código: {produto.id}</p>
-                        <h1>{produto.produto}</h1>
+                        <h1>{produto.nome}</h1>
                         <p>{produto.descricao}</p>
                         <div className='preco' >
                             <h3>R$ {produto.preco}</h3>

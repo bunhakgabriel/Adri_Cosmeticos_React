@@ -64,7 +64,7 @@ const CardProdutoCarrinho = ({ produto }) => {
             <div className='info-quantidade-delete'>
                 <div className='info'>
                     <h3 className='nome-produto' >
-                        {produto.produto}
+                        {produto.nome}
                     </h3>
                     <h3 className='descricao'>
                         {truncateText(produto.descricao, 390)}
