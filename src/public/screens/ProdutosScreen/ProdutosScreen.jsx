@@ -14,7 +14,7 @@ const ColecaoProdutos = ({ colecao, title, abrirModal }) => {
             <h1>{title}</h1>
             {colecao.array.map(produto => {
                 return (
-                    <div key={produto.codigo}>
+                    <div key={produto.id}>
                         <Produto
                             produto={produto}
                             abrirModal={abrirModal}
@@ -52,10 +52,10 @@ const ProdutosScreen = () => {
         const fetchData = async () => {
             if (!backendCalled.current) {
                 backendCalled.current = true;
+                const produtos = await getProdutos()
                 // const produtos = await getColecaoProdutos();
-                // setData(produtos)
-                // setCopyData(produtos)
-                getProdutos()
+                setData(produtos)
+                setCopyData(produtos)
             }
         }
         fetchData();
@@ -90,7 +90,7 @@ const ProdutosScreen = () => {
         const colecoes = { manicurePedicure: data.manicurePedicure, salao: data.salao, lash: data.lash }
 
         const colecaoProdutoClicado = colecoes[produto.colecao].map(item =>
-            item.codigo === produto.codigo ? { ...item, expandir: !item.expandir } : item
+            item.id === produto.id ? { ...item, expandir: !item.expandir } : item
         );
 
         colecoes[produto.colecao] = colecaoProdutoClicado;

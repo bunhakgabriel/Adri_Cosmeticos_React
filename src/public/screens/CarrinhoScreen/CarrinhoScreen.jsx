@@ -27,7 +27,7 @@ const CarrinhoScreen = () => {
                         if (itemCarrinho.quantidade > 0) {
                             return (
                                 <CardProdutoCarrinho
-                                    key={itemCarrinho.codigo}
+                                    key={itemCarrinho.id}
                                     produto={itemCarrinho}
                                 />
                             )

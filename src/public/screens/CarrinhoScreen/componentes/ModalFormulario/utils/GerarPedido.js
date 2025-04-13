@@ -6,7 +6,7 @@ Celular: ${celular}
 Endereco: ${endereco}`;
 
 const formatarProduto = (produto, index) => `${index + 1} - ${produto.produto}
-Código: ${produto.codigo}
+Código: ${produto.id}
 Quantidade: ${produto.quantidade}
 Preço(un): ${produto.preco}
 `;

@@ -24,8 +24,8 @@ const HomeScreen = () => {
                     return (
                         <LinhaProfissionalCard
                             key={index}
-                            url1={linha.url1}
-                            url2={linha.url2}
+                            url1={linha.imagem1}
+                            url2={linha.imagem2}
                             colecao={linha.colecao}
                         >
                             <h1>{linha.titulo}</h1>

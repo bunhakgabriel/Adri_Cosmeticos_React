@@ -38,7 +38,7 @@ const CardProdutoCarrinho = ({ produto }) => {
 
     const init = () => {
         carrinho.forEach(itemCarrinho => {
-            if (itemCarrinho.codigo === produto.codigo) {
+            if (itemCarrinho.id === produto.id) {
                 produto.quantidade = itemCarrinho.quantidade
             }
         })
@@ -59,7 +59,7 @@ const CardProdutoCarrinho = ({ produto }) => {
     return (
         <div id='card-produto-carrinho' >
             <div className='img'>
-                <img src={produto.url} />
+                <img src={produto.imagem} />
             </div>
             <div className='info-quantidade-delete'>
                 <div className='info'>

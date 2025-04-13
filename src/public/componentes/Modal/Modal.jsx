@@ -16,9 +16,9 @@ const Modal = ({ produto, abrirModal, colecao }) => {
         return (
             <dialog id="modal" open={produto.expandir} onClick={() => abrirModal(produto, colecao)}>
                 <div className='produtos-modal'>
-                    <img src={produto.url} />
+                    <img src={produto.imagem} />
                     <div className='conteudo'>
-                        <p>Código: {produto.codigo}</p>
+                        <p>Código: {produto.id}</p>
                         <h1>{produto.produto}</h1>
                         <p>{produto.descricao}</p>
                         <div className='preco' >

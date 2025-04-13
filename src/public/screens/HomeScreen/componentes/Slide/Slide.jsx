@@ -41,7 +41,7 @@ const Slide = () => {
         {imagens.map((imagem, index) =>
           <SwiperSlide key={index} className="container-slide" >
             <Link to={imagem.path}>
-              <img src={imagem.url} className="img-slide" />
+              <img src={imagem.imagem} className="img-slide" />
             </Link>
           </SwiperSlide>
         )}
