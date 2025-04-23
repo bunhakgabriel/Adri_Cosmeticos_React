@@ -34,7 +34,7 @@ const ColecaoProdutos = ({ colecao, title, abrirModal }) => {
 
 const ProdutosScreen = () => {
     const backendCalled = useRef(false);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const manicureComponentRef = useRef(null);
     const salaoComponentRef = useRef(null);
     const lashComponentRef = useRef(null);
