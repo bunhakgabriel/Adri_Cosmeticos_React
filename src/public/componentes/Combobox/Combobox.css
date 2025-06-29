@@ -1,0 +1,35 @@
+#combobox {
+    display: flex;
+    flex-direction: column;
+    position: relative; 
+
+    .options {
+        position: absolute;
+        top: 110%; 
+        left: 0;
+        width: 100%; 
+        border: 1px solid #d4d4d4;
+        border-radius: 8px;
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: white;
+        z-index: 10;
+
+        .option {
+            padding: 3px 10px;
+
+            &:first-child{
+                padding-top: 6px;
+            }
+
+            &:last-child{
+                padding-bottom: 6px;
+            }
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+            }
+        }
+    }
+}
