@@ -15,9 +15,9 @@ const validateForm = Yup.object().shape({
     descricao: Yup.string(),
     codigo: Yup.string().required('Campo obrigatório'),
     colecao: Yup.string().required('Campo obrigatório'),
-    estoque: 
+    estoque:
         Yup.string().required('Campo obrigatório')
-        .matches(/^[0-9]+$/, 'Digite apenas números'),
+            .matches(/^[0-9]+$/, 'Digite apenas números'),
     preco: Yup.string().required('Campo obrigatório'),
     url: Yup.string().required('É necessário escolher uma imagem para o produto')
 })
@@ -29,14 +29,14 @@ const optionsComboboxCategorias = [
 ]
 
 const PainelAdmScreen = () => {
-    const { 
-        register, 
-        handleSubmit, 
-        reset, 
-        watch, 
-        formState: { errors }, 
-        control, 
-        setValue 
+    const {
+        register,
+        handleSubmit,
+        reset,
+        watch,
+        formState: { errors },
+        control,
+        setValue
     } = useForm({
         resolver: yupResolver(validateForm)
     })
@@ -92,22 +92,21 @@ const PainelAdmScreen = () => {
                         )}
                     />
 
-                    <div className="form-group">
-                        <label>Categoria</label>
-                        <select {...register('colecao')}>
-                            <option>Selecione uma categoria</option>
-                            <option>Manicure e pedicure</option>
-                            <option>Salão</option>
-                            <option>Lash Designer</option>
-                        </select>
-                    </div>
-
-                    <div className="form-group">
-                        <label>Categoria</label>
-                        <Combobox 
-                            listOptions={optionsComboboxCategorias}
-                        />
-                    </div>
+                    <Controller
+                        name='colecao'
+                        control={control}
+                        defaultValue=''
+                        render={({ field }) => (
+                            <div className="form-group">
+                                <label>Categoria</label>
+                                <Combobox
+                                    listOptions={optionsComboboxCategorias}
+                                    field={field}
+                                />
+                                {errors.colecao && <span className='msg-error'>{errors.colecao.message}</span>}
+                            </div>
+                        )}
+                    />
 
                     <div className="form-group">
                         <label>Estoque</label>
@@ -158,10 +157,10 @@ const PainelAdmScreen = () => {
                                     {urlImage && (
                                         <div>
                                             <span className="image-status">Imagem selecionada</span>
-                                            <TiDelete 
-                                                size={30} 
-                                                style={{ color: 'red', cursor: 'pointer' }} 
-                                                onClick={() => setValue('url', '')}    
+                                            <TiDelete
+                                                size={30}
+                                                style={{ color: 'red', cursor: 'pointer' }}
+                                                onClick={() => setValue('url', '')}
                                             />
                                         </div>
                                     )}
