@@ -9,6 +9,7 @@ import { TiDelete } from "react-icons/ti";
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import Combobox from '../../componentes/Combobox/Combobox';
+import { getColecoes } from './PainelAdmService';
 
 const validateForm = Yup.object().shape({
     produto: Yup.string().required('Campo obrigatório'),
@@ -100,8 +101,8 @@ const PainelAdmScreen = () => {
                             <div className="form-group">
                                 <label>Categoria</label>
                                 <Combobox
-                                    listOptions={optionsComboboxCategorias}
                                     field={field}
+                                    getLista={getColecoes}
                                 />
                                 {errors.colecao && <span className='msg-error'>{errors.colecao.message}</span>}
                             </div>

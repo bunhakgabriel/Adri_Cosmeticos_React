@@ -3,30 +3,42 @@ import { TiDelete } from "react-icons/ti";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState, useRef } from 'react';
 
-const Combobox = ({ listOptions, field }) => {
+const Combobox = ({ field, getLista }) => {
     const [temFoco, setTemFoco] = useState(false);
     const [valorValido, setValorValido] = useState(field.value || '');
-    const [optionsCombobox, setOptionsCombobox] = useState(listOptions);
+    const [optionsCombobox, setOptionsCombobox] = useState([]);
+    const [optionsComboboxFiltro, setOptionsComboboxFiltro] = useState([]);
 
     const inputRef = useRef(null);
-    
+
+    const getListaCombobox = async () => {
+        if (optionsCombobox.length == 0) {
+            const data = await getLista();
+            setOptionsCombobox(data);
+            setOptionsComboboxFiltro(data);
+        }
+        if (optionsCombobox.length != optionsComboboxFiltro.length) {
+            setOptionsComboboxFiltro(optionsCombobox)
+        }
+    }
+
     const changeInput = (text) => {
         field.onChange(text);
 
         if (!text) {
-            setOptionsCombobox(listOptions);
+            setOptionsComboboxFiltro(optionsCombobox);
             return;
         }
 
-        const filtrados = listOptions.filter(op =>
-            op.toLowerCase().includes(text.toLowerCase())
+        const filtrados = optionsCombobox.filter(op =>
+            op.description.toLowerCase().includes(text.toLowerCase())
         );
-        setOptionsCombobox(filtrados);
+        setOptionsComboboxFiltro(filtrados);
     };
 
     const handleBlur = () => {
-        const valorDigitadoEhValido = listOptions.some(op =>
-            op.toLowerCase() === (field.value || '').toLowerCase()
+        const valorDigitadoEhValido = optionsCombobox.some(op =>
+            op.description.toLowerCase() === (field.value || '').toLowerCase()
         );
 
         if (!valorDigitadoEhValido && field.value) {
@@ -49,11 +61,11 @@ const Combobox = ({ listOptions, field }) => {
         <div id="combobox" className="combobox" tabIndex={0}>
             <div>
                 <input
-                ref={inputRef}
+                    ref={inputRef}
                     type="text"
                     onFocus={() => {
-                        setOptionsCombobox(listOptions);
-                        setTemFoco(true);
+                        setTemFoco(true)
+                        getListaCombobox()
                     }}
                     onBlur={handleBlur}
                     onChange={e => changeInput(e.target.value)}
@@ -61,33 +73,28 @@ const Combobox = ({ listOptions, field }) => {
                     placeholder='Selecione uma categoria'
                 />
 
-                {field.value ? (
+                {field.value &&
                     <TiDelete
                         size={25}
                         style={{ cursor: 'pointer' }}
                         onClick={() => field.onChange('')}
                     />
-                ) : (
-                    <IoIosArrowDown
-                        size={25}
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => {
-                            setOptionsCombobox(listOptions);
-                            setTemFoco(!temFoco);
-                            inputRef.current?.focus(); 
-                        }}
-                    />
-                )}
+                }
             </div>
             {temFoco && (
                 <div className="options">
-                    {optionsCombobox.map(op => (
-                        <div className="option" key={op}>
-                            <div onMouseDown={() => handleSelecionar(op)}>
-                                {op}
+                    {optionsComboboxFiltro.length > 0 ?
+                        (optionsComboboxFiltro.map(op => (
+                            <div className="option" key={op.value}>
+                                <div onMouseDown={() => handleSelecionar(op.value)}>
+                                    {op.description}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))) : (
+                            <div className="option">
+                                <div>Sem resultados</div>
+                            </div>
+                        )}
                 </div>
             )}
         </div>
