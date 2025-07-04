@@ -10,6 +10,9 @@ import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import Combobox from '../../componentes/Combobox/Combobox';
 import { getColecoes } from './PainelAdmService';
+import { salvarProduto } from './PainelAdmService';
+import { data } from 'react-router-dom';
+import { useRef } from 'react';
 
 const validateForm = Yup.object().shape({
     produto: Yup.string().required('Campo obrigatório'),
@@ -22,12 +25,6 @@ const validateForm = Yup.object().shape({
     preco: Yup.string().required('Campo obrigatório'),
     url: Yup.string().required('É necessário escolher uma imagem para o produto')
 })
-
-const optionsComboboxCategorias = [
-    'Manicure e pedicure',
-    'Salão',
-    'Lash Designer',
-]
 
 const PainelAdmScreen = () => {
     const {
@@ -42,11 +39,19 @@ const PainelAdmScreen = () => {
         resolver: yupResolver(validateForm)
     })
 
-    const onSubmit = (data) => {
-        console.log(data)
+    const onSubmit = async (data) => {
+        try {
+            const resp = await salvarProduto(data, objectImage.current)
+            alert(resp)
+            reset()
+        } catch (e) {
+            console.error("Erro ao salvar:", e);
+            alert(e.message || "Erro desconhecido ao cadastrar o produto.");
+        }
     }
 
     const urlImage = watch('url')
+    const objectImage = useRef(null)
 
     return (
         <div id="painel-adm-screen">
@@ -151,7 +156,10 @@ const PainelAdmScreen = () => {
                                         <input
                                             type="file"
                                             hidden
-                                            onChange={async e => field.onChange(await converteFileBase64(e))}
+                                            onChange={async e => {
+                                                objectImage.current = e.target.files[0];
+                                                field.onChange(await converteFileBase64(e))
+                                            }}
                                         />
                                         📤 Escolher Arquivo
                                     </label>
@@ -181,7 +189,7 @@ const PainelAdmScreen = () => {
                 <p><strong>📷 Preview do Produto</strong></p>
                 <div className="image-preview">
                     <img
-                        src={urlImage}
+                        src={urlImage || 'https://clp.org.br/wp-content/uploads/2024/04/default-thumbnail.jpg'}
                         alt="Preview do Produto"
                     />
                 </div>
