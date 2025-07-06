@@ -5,12 +5,61 @@
     gap: 40px;
     font-family: sans-serif;
 
+    .container-forms {
+        width: 65%;
+    }
+
+    .form-edicao {
+        padding: 10px 20px;
+
+        .titulo-opcoes {
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: 10px;
+            row-gap: 5px;
+            align-items: center;
+            cursor: pointer;
+
+            h2 {
+                padding: 10px 20px;
+                border-radius: 8px;
+                font-size: 24px;
+                font-weight: 500;
+                cursor: pointer;
+                background-color: transparent;
+                border: 2px solid transparent;
+                transition: all 0.3s ease;
+                margin-right: 10px;
+                color: #333;
+                border: 2px solid #ccc;
+
+                /* &:hover {
+                        background-color: #f0f0f0;
+                    } */
+            }
+
+            .active {
+                background-color: #2ecc71;
+                /* verde suave */
+                color: white;
+                border-color: #27ae60;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+
     .form-card {
         background: #f9f9ff;
         padding: 10px 20px;
         border-radius: 12px;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.06);
-        width: 65%;
+
+        input:disabled {
+            background-color: #f0f0f0;
+            color: #888;
+            border: 1px solid #ccc;
+            cursor: not-allowed;
+        }
     }
 
     .preview-card {
@@ -114,7 +163,7 @@
         opacity: 0.9;
     }
 
-    .msg-error{
+    .msg-error {
         color: red;
         padding-block: 3px;
     }
@@ -122,13 +171,40 @@
     @media screen and (max-width: 870px) {
         flex-direction: column;
 
+        .container-forms {
+            width: 100%;
+        }
+
         .form-card {
-        width: 100%;
+            width: 100%;
+
+            .titulo-opcoes {
+                h2 {
+                    font-size: 18px;
+                }
+            }
+        }
+
+        .preview-card {
+            width: 100%;
+        }
     }
 
-    .preview-card {
-        width: 100%;
-    }
+    @media screen and (max-width: 400px) {
+        flex-direction: column;
+
+        .form-card {
+            .titulo-opcoes {
+                h2 {
+                    font-size: 14px;
+                    width: 100%;
+                }
+            }
+        }
+
+        .preview-card {
+            width: 100%;
+        }
     }
 
 }

@@ -1,10 +1,11 @@
 import './ComboboxRhf.css';
 import { TiDelete } from "react-icons/ti";
+import { IoIosArrowDown } from "react-icons/io";
 import { useState, useRef } from 'react';
 
-const Combobox = ({ value, setValue, getLista, config }) => {
+const ComboboxRhf = ({ field, getLista, config }) => {
     const [temFoco, setTemFoco] = useState(false);
-    const [valorValido, setValorValido] = useState(value || '');
+    const [valorValido, setValorValido] = useState(field.value || '');
     const [optionsCombobox, setOptionsCombobox] = useState([]);
     const [optionsComboboxFiltro, setOptionsComboboxFiltro] = useState([]);
 
@@ -22,7 +23,7 @@ const Combobox = ({ value, setValue, getLista, config }) => {
     }
 
     const changeInput = (text) => {
-        setValue(text);
+        field.onChange(text);
 
         if (!text) {
             setOptionsComboboxFiltro(optionsCombobox);
@@ -37,21 +38,21 @@ const Combobox = ({ value, setValue, getLista, config }) => {
 
     const handleBlur = () => {
         const valorDigitadoEhValido = optionsCombobox.some(op =>
-            op.description.toLowerCase() === (value || '').toLowerCase()
+            op.description.toLowerCase() === (field.value || '').toLowerCase()
         );
 
-        if (!valorDigitadoEhValido && value) {
-            setValue(valorValido); // restaura último valor válido
+        if (!valorDigitadoEhValido && field.value) {
+            field.onChange(valorValido); // restaura último valor válido
         } else {
-            setValorValido(value); // atualiza valor válido
+            setValorValido(field.value); // atualiza valor válido
         }
 
         setTemFoco(false);
-        //field.onBlur(); // dispara validação se necessário
+        field.onBlur(); // dispara validação se necessário
     };
 
     const handleSelecionar = (op) => {
-        setValue(op);
+        field.onChange(op);
         setValorValido(op);
         setTemFoco(false);
     };
@@ -68,16 +69,16 @@ const Combobox = ({ value, setValue, getLista, config }) => {
                     }}
                     onBlur={handleBlur}
                     onChange={e => changeInput(e.target.value)}
-                    value={value || ''}
+                    value={field.value || ''}
                     placeholder='Selecione uma categoria'
                     {...config}
                 />
 
-                {value &&
+                {field.value &&
                     <TiDelete
                         size={25}
                         style={{ cursor: 'pointer' }}
-                        onClick={() => setValue('')}
+                        onClick={() => field.onChange('')}
                     />
                 }
             </div>
@@ -101,4 +102,4 @@ const Combobox = ({ value, setValue, getLista, config }) => {
     );
 };
 
-export default Combobox;
+export default ComboboxRhf;

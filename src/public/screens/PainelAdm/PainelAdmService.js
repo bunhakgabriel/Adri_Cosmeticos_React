@@ -1,5 +1,5 @@
 import { db, app } from "../../../firebase/firebaseConfis";
-import { getDocs, collection, setDoc, doc } from "firebase/firestore";
+import { getDocs, collection, setDoc, doc, query, where } from "firebase/firestore";
 import {
     getStorage,
     ref,
@@ -48,3 +48,22 @@ export const salvarProduto = (produto) => {
         }
     });
 }
+
+export const buscarPorCodigo = async (data) => {
+    return new Promise(async (res, rej) => {
+        try {
+            const citiesRef = collection(db, data.colecao);
+            const q = query(citiesRef, where("codigo", "==", data.codigo));
+            const querySnapshot = await getDocs(q);
+            const objeto = new Object();
+
+            querySnapshot.forEach((item) => {
+                (objeto.id = item.id), (objeto.data = item.data());
+            });
+            res(objeto);
+        } catch (error) {
+            console.error("Erro ao buscar produto:", error);
+            rej(new Error("Erro ao buscar produto. Tente novamente."));
+        }
+    });
+};

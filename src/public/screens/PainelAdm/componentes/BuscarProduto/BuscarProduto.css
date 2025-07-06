@@ -1,0 +1,18 @@
+#buscar-produto {
+    display: flex;
+    column-gap: 10px;
+
+    input:disabled {
+        background-color: #f0f0f0;
+        color: #888;
+        border: 1px solid #ccc;
+        cursor: not-allowed;
+    }
+
+}
+
+@media screen and (max-width: 580px) {
+    #buscar-produto {
+        flex-direction: column;
+    }
+}
