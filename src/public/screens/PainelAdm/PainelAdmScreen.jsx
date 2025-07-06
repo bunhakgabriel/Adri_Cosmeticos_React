@@ -2,7 +2,7 @@
 
 import { Controller, useForm } from 'react-hook-form';
 import './PainelAdmScreen.css'
-import { converteFileBase64 } from '../../../utils/converteFileBase64';
+import { useState, useEffect } from 'react';
 import { precoMask } from '../../../utils/masks';
 import { numberMask } from '../../../utils/masks';
 import { TiDelete } from "react-icons/ti";
@@ -11,8 +11,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Combobox from '../../componentes/Combobox/Combobox';
 import { getColecoes } from './PainelAdmService';
 import { salvarProduto } from './PainelAdmService';
-import { data } from 'react-router-dom';
-import { useRef } from 'react';
 
 const validateForm = Yup.object().shape({
     produto: Yup.string().required('Campo obrigatório'),
@@ -23,7 +21,11 @@ const validateForm = Yup.object().shape({
         Yup.string().required('Campo obrigatório')
             .matches(/^[0-9]+$/, 'Digite apenas números'),
     preco: Yup.string().required('Campo obrigatório'),
-    url: Yup.string().required('É necessário escolher uma imagem para o produto')
+    url: Yup.mixed()
+        .required('É necessário escolher uma imagem')
+        .test('fileType', 'Apenas imagens são permitidas', value => {
+            return value && value.type.startsWith('image/');
+        }),
 })
 
 const PainelAdmScreen = () => {
@@ -39,9 +41,22 @@ const PainelAdmScreen = () => {
         resolver: yupResolver(validateForm)
     })
 
+    const [previewUrl, setPreviewUrl] = useState('');
+    const imagem = watch('url')
+
+    useEffect(() => {
+        if (imagem instanceof File) {
+            const reader = new FileReader();
+            reader.onloadend = () => setPreviewUrl(reader.result);
+            reader.readAsDataURL(imagem);
+        } else {
+            setPreviewUrl('');
+        }
+    }, [imagem]);
+
     const onSubmit = async (data) => {
         try {
-            const resp = await salvarProduto(data, objectImage.current)
+            const resp = await salvarProduto(data)
             alert(resp)
             reset()
         } catch (e) {
@@ -49,9 +64,6 @@ const PainelAdmScreen = () => {
             alert(e.message || "Erro desconhecido ao cadastrar o produto.");
         }
     }
-
-    const urlImage = watch('url')
-    const objectImage = useRef(null)
 
     return (
         <div id="painel-adm-screen">
@@ -156,14 +168,11 @@ const PainelAdmScreen = () => {
                                         <input
                                             type="file"
                                             hidden
-                                            onChange={async e => {
-                                                objectImage.current = e.target.files[0];
-                                                field.onChange(await converteFileBase64(e))
-                                            }}
+                                            onChange={e => field.onChange(e.target.files[0])}
                                         />
                                         📤 Escolher Arquivo
                                     </label>
-                                    {urlImage && (
+                                    {field.value && (
                                         <div>
                                             <span className="image-status">Imagem selecionada</span>
                                             <TiDelete
@@ -189,7 +198,7 @@ const PainelAdmScreen = () => {
                 <p><strong>📷 Preview do Produto</strong></p>
                 <div className="image-preview">
                     <img
-                        src={urlImage || 'https://clp.org.br/wp-content/uploads/2024/04/default-thumbnail.jpg'}
+                        src={previewUrl || 'https://clp.org.br/wp-content/uploads/2024/04/default-thumbnail.jpg'}
                         alt="Preview do Produto"
                     />
                 </div>

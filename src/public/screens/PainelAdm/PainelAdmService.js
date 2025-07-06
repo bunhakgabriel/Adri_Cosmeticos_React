@@ -20,8 +20,10 @@ export const getColecoes = () => {
     })
 }
 
-export const salvarProduto = (produto, objectImage) => {
-    const salvarImagem = async (produto, objectImage) => {
+export const salvarProduto = (produto) => {
+    const salvarImagem = async (produto) => {
+        const objectImage = produto.url
+
         try {
             const storage = getStorage(app);
             const storageRef = ref(storage, `${produto.colecao}/${objectImage.name}`);
@@ -37,7 +39,7 @@ export const salvarProduto = (produto, objectImage) => {
 
     return new Promise(async (res, rej) => {
         try {
-            await salvarImagem(produto, objectImage);
+            await salvarImagem(produto);
             await setDoc(doc(db, produto.colecao, produto.codigo), produto);
             res("Produto cadastrado com sucesso");
         } catch (error) {
