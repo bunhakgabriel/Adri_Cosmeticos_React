@@ -1,11 +1,23 @@
 import { db, app } from "../../../firebase/firebaseConfis";
-import { getDocs, collection, setDoc, doc, query, where } from "firebase/firestore";
+import {
+    getDocs,
+    collection,
+    setDoc,
+    doc,
+    query,
+    where,
+    updateDoc,
+    deleteDoc
+} from "firebase/firestore";
 import {
     getStorage,
     ref,
     uploadBytes,
     getDownloadURL,
+    deleteObject
 } from "firebase/storage";
+
+import { firebaseConfig } from "../../../firebase/firebaseConfis";
 
 export const getColecoes = () => {
     return new Promise(async (res, rej) => {
@@ -67,3 +79,73 @@ export const buscarPorCodigo = async (data) => {
         }
     });
 };
+
+export const atualizarProduto = async (data) => {
+    const coletionRef = doc(db, data.colecao, data.codigo);
+    const versionSnapshot = await getDocs(collection(db, "version"));
+
+    return new Promise(async (res, rej) => {
+        try {
+            await updateDoc(coletionRef, {
+                produto: data.produto,
+                descricao: data.descricao,
+                estoque: data.estoque,
+                preco: data.preco,
+            });
+
+            // Verifica se há documentos na coleção "version"
+            if (!versionSnapshot.empty) {
+                const versionDoc = versionSnapshot.docs[0];  // Acessa o primeiro documento
+                const versionData = versionDoc.data();  // Extrai os dados do documento
+                versionData.versao++
+
+                // Atualiza a versão
+                const coletionVersionRef = doc(db, "version", versionDoc.id);
+                await updateDoc(coletionVersionRef, {
+                    versao: versionData.versao
+                });
+
+            } else {
+                //Nenhum documento encontrado na coleção 'version'
+            }
+
+            res('Alterações salvas com sucesso');
+        } catch (e) {
+            rej('Erro ao fazer alterações, tente novamente')
+            console.log("ERRO AO ALTERAR DADOS: ", e);
+        }
+    })
+}
+
+export const deletarProduto = async (produto) => {
+    const obterPathImagem = (url) => {
+        const storageBucket = firebaseConfig.storageBucket;
+        const baseUrl = `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/`;
+        if (url.startsWith(baseUrl)) {
+            const path = url.substring(baseUrl.length, url.indexOf('?'));
+            return decodeURIComponent(path);
+        }
+        return null;
+    }
+
+    return new Promise(async (res, rej) => {
+        try {
+            try {
+                const storage = getStorage(app);
+                const filePath = obterPathImagem(produto.url);
+                const desertRef = ref(storage, filePath);
+                deleteObject(desertRef)
+            } catch (e) {
+                console.log('Erro ao excluir imagem do storage: ', e);
+            }
+
+            const docRef = doc(db, produto.colecao, produto.codigo);
+            await deleteDoc(docRef);
+            res('Produto deletado com sucesso');
+            location.reload()
+        } catch (e) {
+            console.log('Erro ao fazer delete: ', e);
+            res('Erro ao deletar produto, tente novamente');
+        }
+    })
+}

@@ -10,8 +10,9 @@ import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import ComboboxRhf from '../../componentes/Combobox/ComboboxRhf';
 import { getColecoes } from './PainelAdmService';
-import { salvarProduto } from './PainelAdmService';
+import { salvarProduto, atualizarProduto } from './PainelAdmService';
 import BuscarProduto from './componentes/BuscarProduto/BuscarProduto';
+import Loading from '../../componentes/Loading/Loading'
 
 const validateForm = Yup.object().shape({
     produto: Yup.string().required('Campo obrigatório'),
@@ -22,14 +23,28 @@ const validateForm = Yup.object().shape({
         Yup.string().required('Campo obrigatório')
             .matches(/^[0-9]+$/, 'Digite apenas números'),
     preco: Yup.string().required('Campo obrigatório'),
-    url: Yup.mixed()
-        .required('É necessário escolher uma imagem')
-        .test('fileType', 'Apenas imagens são permitidas', value => {
-            return value && value.type.startsWith('image/');
-        }),
+    // url: Yup.mixed()
+    //     .required('É necessário escolher uma imagem')
+    //     .test('fileType', 'Apenas imagens são permitidas', value => {
+    //         return value && value.type.startsWith('image/');
+    //     }),
+    url: Yup.mixed().when('$isCadastro', {
+        is: true,
+        then: (schema) =>
+            schema
+                .required('É necessário escolher uma imagem')
+                .test('fileType', 'Apenas imagens são permitidas', (value) => {
+                    return value && value.type?.startsWith('image/');
+                }),
+        otherwise: (schema) => schema.notRequired(),
+    }),
 })
 
 const PainelAdmScreen = () => {
+    const [operacao, setOperacao] = useState('Cadastro')
+    const [previewUrl, setPreviewUrl] = useState('');
+    const [loading, setLoading] = useState(false)
+
     const {
         register,
         handleSubmit,
@@ -39,11 +54,10 @@ const PainelAdmScreen = () => {
         control,
         setValue
     } = useForm({
-        resolver: yupResolver(validateForm)
+        resolver: yupResolver(validateForm),
+        context: { isCadastro: operacao === 'Cadastro' }
     })
 
-    const [operacao, setOperacao] = useState('Cadastro')
-    const [previewUrl, setPreviewUrl] = useState('');
     const imagem = watch('url')
 
     useEffect(() => {
@@ -69,18 +83,31 @@ const PainelAdmScreen = () => {
     };
 
     const onSubmit = async (data) => {
+        setLoading(true)
         try {
-            const resp = await salvarProduto(data)
-            alert(resp)
+            let resp;
+            if (operacao == 'Cadastro') {
+                resp = await salvarProduto(data)
+                setLoading(false)
+                alert(resp)
+            } else if (operacao == 'Edicao') {
+                resp = await atualizarProduto(data)
+                setLoading(false)
+                alert(resp)
+                setOperacao('Cadastro')
+            }
+            
             reset()
         } catch (e) {
             console.error("Erro ao salvar:", e);
+            setLoading(false)
             alert(e.message || "Erro desconhecido ao cadastrar o produto.");
         }
     }
 
     return (
         <div id="painel-adm-screen">
+            {loading && <Loading load={true} />}
             <div className='container-forms'>
                 <div className='form-edicao'>
                     <div className='titulo-opcoes'>
@@ -103,10 +130,15 @@ const PainelAdmScreen = () => {
 
                     <BuscarProduto
                         operacao={operacao}
+                        setOperacao={setOperacao}
                         onProdutoEncontrado={preencherFormulario}
                     />
                 </div>
-                <form className="form-card" onSubmit={handleSubmit(onSubmit)}>
+                <form
+                    className="form-card"
+                    onSubmit={handleSubmit(onSubmit)}
+                    key={operacao}
+                >
                     <div className="form-group">
                         <label>Nome do Produto</label>
                         <input

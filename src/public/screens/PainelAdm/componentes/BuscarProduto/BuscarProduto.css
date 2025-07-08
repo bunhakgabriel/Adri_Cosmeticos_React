@@ -2,11 +2,24 @@
     display: flex;
     column-gap: 10px;
 
-    input:disabled {
+    input:disabled, button:disabled {
         background-color: #f0f0f0;
         color: #888;
         border: 1px solid #ccc;
         cursor: not-allowed;
+    }
+
+    .btn-delete{
+        background-color: #FF6347;
+        width: 100px;
+        padding: 10px;
+        border: 1px solid #d4d4d4;
+        border-radius: 8px;
+        font-size: 14px;
+
+        &:hover{
+            opacity: 0.9;
+        }
     }
 
 }
