@@ -27,7 +27,9 @@ const BuscarProduto = ({ operacao, setOperacao, onProdutoEncontrado }) => {
         setLoading(true)
         try {
             const produto = await buscarPorCodigo(data)
-            setLoading(false)
+            setTimeout(() => {
+                setLoading(false)
+            }, 1200)
             if(!produto.data){
                 alert('Produto não encontrado!')
             }
@@ -52,7 +54,9 @@ const BuscarProduto = ({ operacao, setOperacao, onProdutoEncontrado }) => {
         setLoading(true)
         try {
             const resp = await deletarProduto(produto)
-            setLoading(false)
+            setTimeout(() => {
+                setLoading(false)
+            }, 1200)
             alert(resp)
             reset()
             setOperacao('Cadastro')
