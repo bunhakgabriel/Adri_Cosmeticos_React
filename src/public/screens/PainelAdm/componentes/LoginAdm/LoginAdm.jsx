@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import "./LoginAdm.css";
+import { ref1, REF } from "../../../../../utils/ref";
 
-const LoginAdm = () => {
+const LoginAdm = ({ autenticado, setAutenticado }) => {
   const [login, setLogin] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
-  const [autenticado, setAutenticado] = useState(false);
 
   useEffect(() => {
     const isAutenticado = localStorage.getItem("admautenticado") === "true";
@@ -17,7 +17,7 @@ const LoginAdm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (login === "admin" && senha === "admin") {
+    if (ref1(login, REF) === "4AcK4M4x87cM4MA71" && ref1(senha, REF) === "4MA7c1VMRnRW") {
       setErro("");
       setAutenticado(true);
       localStorage.setItem("admautenticado", "true");

@@ -3,15 +3,15 @@ export const precoMask = (value) => {
   
   if(value == 'R$') return ''
 
-  value = value.replace(/[^\d,]/g, '');
+  value = value.replace(/[^\d.]/g, '');
 
   // Se começar com vírgula, remove
-  if (value.startsWith(',')) {
+  if (value.startsWith('.')) {
     value = value.slice(1);
   }
 
   // Garante que só exista uma vírgula, e apenas após pelo menos um número
-  const parts = value.split(',');
+  const parts = value.split('.');
   const inteira = parts[0];
   let decimal = parts[1] || '';
 
@@ -26,10 +26,10 @@ export const precoMask = (value) => {
   }
 
   let resultado = inteira;
-  if (value.includes(',') && decimal !== '') {
-    resultado += ',' + decimal;
-  } else if (value.includes(',')) {
-    resultado += ',';
+  if (value.includes('.') && decimal !== '') {
+    resultado += '.' + decimal;
+  } else if (value.includes('.')) {
+    resultado += '.';
   }
 
   return `R$ ${resultado}`;

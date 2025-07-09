@@ -40,10 +40,22 @@
 
             .active {
                 background-color: #2ecc71;
-                /* verde suave */
                 color: white;
                 border-color: #27ae60;
                 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            }
+            
+            button {
+                background-color: #FF6347;
+                width: 100px;
+                padding: 10px;
+                border: 1px solid #d4d4d4;
+                border-radius: 8px;
+                font-size: 14px;
+
+                &:hover {
+                    opacity: 0.9;
+                }
             }
         }
     }

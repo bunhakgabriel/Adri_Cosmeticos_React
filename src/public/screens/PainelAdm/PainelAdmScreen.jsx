@@ -13,6 +13,7 @@ import { getColecoes } from './PainelAdmService';
 import { salvarProduto, atualizarProduto } from './PainelAdmService';
 import BuscarProduto from './componentes/BuscarProduto/BuscarProduto';
 import Loading from '../../componentes/Loading/Loading'
+import LoginAdm from './componentes/LoginAdm/LoginAdm';
 
 const validateForm = Yup.object().shape({
     produto: Yup.string().required('Campo obrigatório'),
@@ -43,7 +44,8 @@ const validateForm = Yup.object().shape({
 const PainelAdmScreen = () => {
     const [operacao, setOperacao] = useState('Cadastro')
     const [previewUrl, setPreviewUrl] = useState('');
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [autenticado, setAutenticado] = useState(false);
 
     const {
         register,
@@ -96,7 +98,7 @@ const PainelAdmScreen = () => {
                 alert(resp)
                 setOperacao('Cadastro')
             }
-            
+
             reset()
         } catch (e) {
             console.error("Erro ao salvar:", e);
@@ -105,180 +107,197 @@ const PainelAdmScreen = () => {
         }
     }
 
-    return (
-        <div id="painel-adm-screen">
-            {loading && <Loading load={true} />}
-            <div className='container-forms'>
-                <div className='form-edicao'>
-                    <div className='titulo-opcoes'>
-                        <h2 className={`${operacao == 'Cadastro' ? 'active' : ''}`}
-                            onClick={() => {
-                                setOperacao('Cadastro')
-                                reset()
-                                setPreviewUrl('')
-                            }}
-                        >
-                            + Cadastrar Novo Produto
-                        </h2>
-                        <h2 className={`${operacao == 'Edicao' ? 'active' : ''}`}
-                            onClick={() => setOperacao('Edicao')}
-                        >
-                            - Editar um Produto
-                        </h2>
-                    </div>
-                    <p>Preencha as informações do produto para adicionar ao estoque</p>
+    const handleLogout = () => {
+        if(window.confirm('Deseja encerrar sua sessão?')){
+            localStorage.removeItem("admautenticado");
+            setAutenticado(false);
+        }
+    };
 
-                    <BuscarProduto
-                        operacao={operacao}
-                        setOperacao={setOperacao}
-                        onProdutoEncontrado={preencherFormulario}
-                    />
-                </div>
-                <form
-                    className="form-card"
-                    onSubmit={handleSubmit(onSubmit)}
-                    key={operacao}
-                >
-                    <div className="form-group">
-                        <label>Nome do Produto</label>
-                        <input
-                            type="text"
-                            placeholder="Ex: Acetona Cinco Lutex 500ml"
-                            {...register('produto')}
+    if (autenticado) {
+        return (
+            <div id="painel-adm-screen">
+                {loading && <Loading load={true} />}
+                <div className='container-forms'>
+                    <div className='form-edicao'>
+                        <div className='titulo-opcoes'>
+                            <h2 className={`${operacao == 'Cadastro' ? 'active' : ''}`}
+                                onClick={() => {
+                                    setOperacao('Cadastro')
+                                    reset()
+                                    setPreviewUrl('')
+                                }}
+                            >
+                                + Cadastrar Novo Produto
+                            </h2>
+                            <h2 className={`${operacao == 'Edicao' ? 'active' : ''}`}
+                                onClick={() => setOperacao('Edicao')}
+                            >
+                                - Editar um Produto
+                            </h2>
+                            <button onClick={() => handleLogout()}>Logout</button>
+                        </div>
+                        <p>Preencha as informações do produto para adicionar ao estoque</p>
+
+                        <BuscarProduto
+                            operacao={operacao}
+                            setOperacao={setOperacao}
+                            onProdutoEncontrado={preencherFormulario}
                         />
-                        {errors.produto && <span className='msg-error'>{errors.produto.message}</span>}
                     </div>
-
-                    <div className="form-group">
-                        <label>Descrição</label>
-                        <textarea
-                            placeholder="Descreva as características e benefícios do produto"
-                            {...register('descricao')}
-                        >
-                        </textarea>
-                        {errors.descricao && <span className='msg-error'>{errors.descricao.message}</span>}
-                    </div>
-
-                    <div className="form-row">
-                        <Controller
-                            name='codigo'
-                            control={control}
-                            defaultValue=''
-                            render={({ field }) => (
-                                <div className="form-group">
-                                    <label>Código do Produto</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Ex: 789605471923"
-                                        value={field.value}
-                                        onChange={e => field.onChange(numberMask(e.target.value))}
-                                        disabled={operacao != 'Cadastro'}
-                                    />
-                                    {errors.codigo && <span className='msg-error'>{errors.codigo.message}</span>}
-                                </div>
-                            )}
-                        />
-
-                        <Controller
-                            name='colecao'
-                            control={control}
-                            defaultValue=''
-                            render={({ field }) => (
-                                <div className="form-group">
-                                    <label>Colecao</label>
-                                    <ComboboxRhf
-                                        field={field}
-                                        getLista={getColecoes}
-                                        config={{
-                                            disabled: operacao != 'Cadastro'
-                                        }}
-                                    />
-                                    {errors.colecao && <span className='msg-error'>{errors.colecao.message}</span>}
-                                </div>
-                            )}
-                        />
-
+                    <form
+                        className="form-card"
+                        onSubmit={handleSubmit(onSubmit)}
+                        key={operacao}
+                    >
                         <div className="form-group">
-                            <label>Estoque</label>
+                            <label>Nome do Produto</label>
                             <input
                                 type="text"
-                                placeholder="Ex: 10"
-                                {...register('estoque')}
+                                placeholder="Ex: Acetona Cinco Lutex 500ml"
+                                {...register('produto')}
                             />
-                            {errors.estoque && <span className='msg-error'>{errors.estoque.message}</span>}
+                            {errors.produto && <span className='msg-error'>{errors.produto.message}</span>}
                         </div>
 
-                        <Controller
-                            control={control}
-                            name='preco'
-                            defaultValue=''
-                            render={({ field }) => (
-                                <div className="form-group">
-                                    <label>Preço (R$)</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Ex: 32.99"
-                                        value={field.value}
-                                        onChange={e => field.onChange(precoMask(e.target.value))}
-                                    />
-                                    {errors.preco && <span className='msg-error'>{errors.preco.message}</span>}
-                                </div>
-                            )}
-                        />
-                    </div>
+                        <div className="form-group">
+                            <label>Descrição</label>
+                            <textarea
+                                placeholder="Descreva as características e benefícios do produto"
+                                {...register('descricao')}
+                            >
+                            </textarea>
+                            {errors.descricao && <span className='msg-error'>{errors.descricao.message}</span>}
+                        </div>
 
-                    <div className="form-group">
-                        <Controller
-                            control={control}
-                            name='url'
-                            defaultValue=''
-                            render={({ field }) => (
-                                <div className='form-group'>
-                                    <label>Imagem do Produto</label>
-                                    <div className="upload-section">
-                                        <label className="upload-button">
-                                            <input
-                                                type="file"
-                                                hidden
-                                                onChange={e => field.onChange(e.target.files[0])}
-                                                disabled={operacao != 'Cadastro'}
-                                            />
-                                            📤 Escolher Arquivo
-                                        </label>
-                                        {field.value && (
-                                            <div>
-                                                <span className="image-status">Imagem selecionada</span>
-                                                <TiDelete
-                                                    size={30}
-                                                    style={{ color: 'red', cursor: 'pointer' }}
-                                                    onClick={() => setValue('url', '')}
-                                                />
-                                            </div>
-                                        )}
+                        <div className="form-row">
+                            <Controller
+                                name='codigo'
+                                control={control}
+                                defaultValue=''
+                                render={({ field }) => (
+                                    <div className="form-group">
+                                        <label>Código do Produto</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Ex: 789605471923"
+                                            value={field.value}
+                                            onChange={e => field.onChange(numberMask(e.target.value))}
+                                            disabled={operacao != 'Cadastro'}
+                                        />
+                                        {errors.codigo && <span className='msg-error'>{errors.codigo.message}</span>}
                                     </div>
-                                    {errors.url && <span className='msg-error'>{errors.url.message}</span>}
-                                </div>
-                            )}
+                                )}
+                            />
+
+                            <Controller
+                                name='colecao'
+                                control={control}
+                                defaultValue=''
+                                render={({ field }) => (
+                                    <div className="form-group">
+                                        <label>Colecao</label>
+                                        <ComboboxRhf
+                                            field={field}
+                                            getLista={getColecoes}
+                                            config={{
+                                                disabled: operacao != 'Cadastro'
+                                            }}
+                                        />
+                                        {errors.colecao && <span className='msg-error'>{errors.colecao.message}</span>}
+                                    </div>
+                                )}
+                            />
+
+                            <div className="form-group">
+                                <label>Estoque</label>
+                                <input
+                                    type="text"
+                                    placeholder="Ex: 10"
+                                    {...register('estoque')}
+                                />
+                                {errors.estoque && <span className='msg-error'>{errors.estoque.message}</span>}
+                            </div>
+
+                            <Controller
+                                control={control}
+                                name='preco'
+                                defaultValue=''
+                                render={({ field }) => (
+                                    <div className="form-group">
+                                        <label>Preço (R$)</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Ex: 32.99"
+                                            value={field.value}
+                                            onChange={e => field.onChange(precoMask(e.target.value))}
+                                        />
+                                        {errors.preco && <span className='msg-error'>{errors.preco.message}</span>}
+                                    </div>
+                                )}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <Controller
+                                control={control}
+                                name='url'
+                                defaultValue=''
+                                render={({ field }) => (
+                                    <div className='form-group'>
+                                        <label>Imagem do Produto</label>
+                                        <div className="upload-section">
+                                            <label className="upload-button">
+                                                <input
+                                                    type="file"
+                                                    hidden
+                                                    onChange={e => field.onChange(e.target.files[0])}
+                                                    disabled={operacao != 'Cadastro'}
+                                                />
+                                                📤 Escolher Arquivo
+                                            </label>
+                                            {field.value && (
+                                                <div>
+                                                    <span className="image-status">Imagem selecionada</span>
+                                                    <TiDelete
+                                                        size={30}
+                                                        style={{ color: 'red', cursor: 'pointer' }}
+                                                        onClick={() => setValue('url', '')}
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+                                        {errors.url && <span className='msg-error'>{errors.url.message}</span>}
+                                    </div>
+                                )}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <button type='submit' className="submit-button">Cadastrar Produto</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div className="preview-card">
+                    <p><strong>📷 Preview do Produto</strong></p>
+                    <div className="image-preview">
+                        <img
+                            src={previewUrl || 'https://clp.org.br/wp-content/uploads/2024/04/default-thumbnail.jpg'}
+                            alt="Preview do Produto"
                         />
                     </div>
-
-                    <div className="form-group">
-                        <button type='submit' className="submit-button">Cadastrar Produto</button>
-                    </div>
-                </form>
-            </div>
-
-            <div className="preview-card">
-                <p><strong>📷 Preview do Produto</strong></p>
-                <div className="image-preview">
-                    <img
-                        src={previewUrl || 'https://clp.org.br/wp-content/uploads/2024/04/default-thumbnail.jpg'}
-                        alt="Preview do Produto"
-                    />
                 </div>
             </div>
-        </div>
-    );
+        );
+    } else {
+        return (
+            <LoginAdm
+                autenticado={autenticado}
+                setAutenticado={setAutenticado}
+            />
+        )
+    }
 }
 
 export default PainelAdmScreen
